@@ -1,5 +1,10 @@
 "use client"
 
+import { Swiper, SwiperSlide } from "swiper/react"
+import "swiper/css"
+import "swiper/css/navigation"
+import { Autoplay, Navigation } from "swiper/modules"
+
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -94,9 +99,9 @@ export default function ArchitecturePortfolio() {
 
 
 
-const [isOpen, setIsOpen] = useState(false);
-const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
 
 
   const projects = [
@@ -112,11 +117,11 @@ const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined
       image: "/modern-residential-complex.png",
       featured: true,
       stats: { xonalar: "120", qavatlar: "12", maydon: "15k m²" },
-          images: [
-    "/modern-business-center-glass-facade.jpg",
-    "/city-park-landscape-design-green-spaces.jpg",
-    "/luxury-villa-interior-design-modern-classic.jpg",
-    "/modern-residential-complex.png"
+      images: [
+        "/modern-business-center-glass-facade.jpg",
+        "/city-park-landscape-design-green-spaces.jpg",
+        "/luxury-villa-interior-design-modern-classic.jpg",
+        "/modern-residential-complex.png"
       ]
     },
     {
@@ -130,11 +135,11 @@ const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined
       image: "/modern-business-center-glass-facade.jpg",
       featured: true,
       stats: { ofislar: "50+", dokonlar: "25", parking: "200" },
-          images: [
-    "/modern-business-center-glass-facade.jpg",
-    "/city-park-landscape-design-green-spaces.jpg",
-    "/luxury-villa-interior-design-modern-classic.jpg",
-    "/modern-residential-complex.png"
+      images: [
+        "/modern-business-center-glass-facade.jpg",
+        "/city-park-landscape-design-green-spaces.jpg",
+        "/luxury-villa-interior-design-modern-classic.jpg",
+        "/modern-residential-complex.png"
       ]
     },
     {
@@ -149,11 +154,11 @@ const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined
       image: "/luxury-villa-interior-design-modern-classic.jpg",
       featured: false,
       stats: { xonalar: "8", hammomlar: "4", uslub: "Zamonaviy" },
-        images: [
-    "/modern-business-center-glass-facade.jpg",
-    "/city-park-landscape-design-green-spaces.jpg",
-    "/luxury-villa-interior-design-modern-classic.jpg",
-    "/modern-residential-complex.png"
+      images: [
+        "/modern-business-center-glass-facade.jpg",
+        "/city-park-landscape-design-green-spaces.jpg",
+        "/luxury-villa-interior-design-modern-classic.jpg",
+        "/modern-residential-complex.png"
       ]
     },
     {
@@ -167,35 +172,33 @@ const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined
       image: "/city-park-landscape-design-green-spaces.jpg",
       featured: false,
       stats: { daraxtlar: "500+", yolaklar: "2km", hududlar: "15" },
-          images: [
-    "/modern-business-center-glass-facade.jpg",
-    "/city-park-landscape-design-green-spaces.jpg",
-    "/luxury-villa-interior-design-modern-classic.jpg",
-    "/modern-residential-complex.png"
+      images: [
+        "/modern-business-center-glass-facade.jpg",
+        "/city-park-landscape-design-green-spaces.jpg",
+        "/luxury-villa-interior-design-modern-classic.jpg",
+        "/modern-residential-complex.png"
       ]
     },
   ]
 
-type Project = {
-  title: string;
-  description: string;
-  category: string;
-  area: string;
-  year: string;
-  client: string;
-  tech: string[];
-  image: string;
-  featured: boolean;
-  stats: Record<string, string | undefined>;
-  images: string[]; 
-};
-  
-
+  type Project = {
+    title: string;
+    description: string;
+    category: string;
+    area: string;
+    year: string;
+    client: string;
+    tech: string[];
+    image: string;
+    featured: boolean;
+    stats: Record<string, string | undefined>;
+    images: string[];
+  };
 
 
   const stats = [
-    { icon: Building2, value: "45+", label: "Tayyor Loyihalar" },
-    { icon: Users, value: "80+", label: "Mamnun Mijozlar" },
+    { icon: Building2, value: "100+", label: "Tayyor Loyihalar" },
+    { icon: Users, value: "100+", label: "Mamnun Mijozlar" },
     { icon: Award, value: "12", label: "Mukofotlar" },
     { icon: Coffee, value: "1000+", label: "Ijodiy Kechalar" },
   ]
@@ -248,21 +251,25 @@ type Project = {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-stone-50 via-white to-amber-50 scroll-smooth">
+    <div className="min-h-screen bg-gradient-to-br from-black via-stone-900 to-black text-white">
       <header
-        className={`border-b border-stone-200 bg-white/90 backdrop-blur-md sticky top-0 z-50 transition-all duration-300 ${scrollY > 50 ? "shadow-lg py-2" : "py-3 md:py-4"}`}
+        className={` bg-black  backdrop-blur-md sticky top-0 z-50 transition-all duration-300 ${scrollY > 50 ? "shadow-lg py-2" : "py-3 md:py-4"}`}
       >
-        <div className="container mx-auto px-4">
-          <nav className="flex items-center justify-between">
+        <div className="container mx-auto px-4 ">
+          <nav className="flex items-center justify-between ">
             <div className="flex items-center space-x-2 md:space-x-3">
-              <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-amber-500 via-orange-500 to-red-500 rounded-xl flex items-center justify-center shadow-lg">
-                <Building2 className="w-5 h-5 md:w-7 md:h-7 text-white" />
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br  rounded-xl flex items-center justify-center shadow-lg">
+                <img
+                  src="/logo.png"
+                  alt="Logo"
+                  className="w-6 h-6 md:w-10 md:h-10 object-contain rounded-3xl"
+                />
               </div>
               <div>
-                <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+                <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r text-white  bg-clip-text ">
                   Arko
                 </h1>
-                <p className="text-xs text-stone-500 hidden sm:block">Professional Arxitektor</p>
+                <p className="text-xs text-white hidden sm:block">Professional Arxitektor</p>
               </div>
             </div>
 
@@ -272,7 +279,7 @@ type Project = {
                 <button
                   key={item}
                   onClick={() => scrollToSection(item)}
-                  className={`capitalize transition-all duration-300 hover:text-amber-600 relative py-2 text-sm xl:text-base ${activeSection === item ? "text-amber-600 font-medium" : "text-stone-700"
+                  className={`capitalize transition-all duration-300 hover:text-white relative py-2 text-sm xl:text-base ${activeSection === item ? "text-white font-medium" : "text-stone-400"
                     }`}
                 >
                   {item === "about"
@@ -285,7 +292,7 @@ type Project = {
                           ? "Loyihalar"
                           : "Aloqa"}
                   {activeSection === item && (
-                    <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full"></div>
+                    <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-white to-white rounded-full"></div>
                   )}
                 </button>
               ))}
@@ -296,7 +303,7 @@ type Project = {
               className="lg:hidden p-2 md:p-3 rounded-xl hover:bg-gradient-to-r hover:from-amber-50 hover:to-orange-50 transition-all duration-300 border border-transparent hover:border-amber-200 hover:shadow-md"
             >
               {isMenuOpen ? (
-                <X className="w-5 h-5 md:w-6 md:h-6 text-amber-600" />
+                <X className="w-5 h-5 md:w-6 md:h-6 text-white" />
               ) : (
                 <Menu className="w-5 h-5 md:w-6 md:h-6 text-stone-700" />
               )}
@@ -330,71 +337,100 @@ type Project = {
       </header>
 
       <section id="about" className="relative py-16 md:py-20 lg:py-24 overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 via-orange-500/5 to-red-500/10"></div>
-          <div className="absolute top-10 md:top-20 left-5 md:left-10 w-48 h-48 md:w-72 md:h-72 bg-amber-400/20 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-10 md:bottom-20 right-5 md:right-10 w-64 h-64 md:w-96 md:h-96 bg-orange-400/20 rounded-full blur-3xl"></div>
-        </div>
+
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-5xl mx-auto text-center">
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-stone-800 mb-4 md:mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 md:mb-6 leading-tight">
               Professional{" "}
               <span className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent">
                 Arxitektor
               </span>
             </h1>
 
-            <p className="text-lg md:text-xl lg:text-2xl text-stone-600 mb-6 md:mb-8 leading-relaxed max-w-4xl mx-auto px-4">
+            <p className="text-lg md:text-xl lg:text-2xl text-gray-500 mb-6 md:mb-8 leading-relaxed max-w-4xl mx-auto px-4">
               5+ yillik tajriba bilan zamonaviy va funksional arxitektura yechimlarini yarataman. Turar-joy, tijorat va
               sanoat binolarini loyihalash, ichki dizayn va 3D vizualizatsiya xizmatlarini taqdim etaman. Har bir loyiha
               - bu o'ziga xos san'at asari.
             </p>
-
             <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-8 md:mb-12 px-4">
-              <Badge className="bg-amber-100 text-amber-800 px-3 md:px-4 py-1 md:py-2 text-sm md:text-base">
+              <Badge className="bg-black text-white border border-white/30 px-3 md:px-4 py-1 md:py-2 text-sm md:text-base rounded-lg hover:bg-white hover:text-black transition-colors duration-300">
                 <Building2 className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2" />
                 Litsenziyali Arxitektor
               </Badge>
-              <Badge className="bg-orange-100 text-orange-800 px-3 md:px-4 py-1 md:py-2 text-sm md:text-base">
+
+              <Badge className="bg-black text-white border border-white/30 px-3 md:px-4 py-1 md:py-2 text-sm md:text-base rounded-lg hover:bg-white hover:text-black transition-colors duration-300">
                 <Award className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2" />
                 Mukofot Sovrindori
               </Badge>
-              <Badge className="bg-red-100 text-red-800 px-3 md:px-4 py-1 md:py-2 text-sm md:text-base">
+
+              <Badge className="bg-black text-white border border-white/30 px-3 md:px-4 py-1 md:py-2 text-sm md:text-base rounded-lg hover:bg-white hover:text-black transition-colors duration-300">
                 <Star className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2" />
                 5+ Yil Tajriba
               </Badge>
+
             </div>
 
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8 mb-12 md:mb-16">
               {stats.map((stat, index) => {
                 const Icon = stat.icon
                 return (
-                  <div key={index} className="text-center group">
-                    <div className="w-16 h-16 md:w-20 md:h-20 mx-auto mb-3 md:mb-4 bg-gradient-to-br from-amber-500 via-orange-500 to-red-500 rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl group-hover:scale-110 transition-all duration-300">
+                  <div
+                    key={index}
+                    className="text-center group"
+                  >
+                    {/* Icon box */}
+                    <div className="w-16 h-16 md:w-20 md:h-20 mx-auto mb-3 md:mb-4 
+                        bg-black border border-white/20 
+                        rounded-2xl flex items-center justify-center 
+                        shadow-xl group-hover:shadow-2xl 
+                        group-hover:scale-110 transition-all duration-300">
                       <Icon className="w-8 h-8 md:w-10 md:h-10 text-white" />
                     </div>
-                    <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-stone-800">{stat.value}</div>
-                    <div className="text-sm md:text-base text-stone-600 font-medium">{stat.label}</div>
+
+                    {/* Value */}
+                    <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
+                      {stat.value}
+                    </div>
+
+                    {/* Label */}
+                    <div className="text-sm md:text-base text-gray-400 font-medium">
+                      {stat.label}
+                    </div>
                   </div>
                 )
               })}
             </div>
 
+
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 px-4">
-                <a href="https://t.me/arko_uz" target="_blank" rel="noopener noreferrer">
-              <Button
-                size="lg"
-                className="group relative cursor-pointer overflow-hidden bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 hover:from-amber-700 hover:via-orange-700 hover:to-red-700 text-white shadow-2xl hover:shadow-amber-500/25 transition-all duration-500 px-8 md:px-10 py-4 md:py-6 text-base md:text-lg font-semibold rounded-2xl border-0 hover:scale-105 hover:-translate-y-1 w-full sm:w-auto"
-              >
-              
-                  <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <Mail className="mr-2 md:mr-3 h-5 w-5 md:h-6 md:w-6 group-hover:rotate-12 transition-transform duration-300" />
+              <a href="https://t.me/arko_uz" target="_blank" rel="noopener noreferrer">
+                <Button
+                  size="lg"
+                  className="group relative cursor-pointer overflow-hidden 
+               bg-black text-white 
+               hover:bg-white hover:text-black 
+               shadow-xl hover:shadow-2xl 
+               transition-all duration-500 
+               px-8 md:px-10 py-4 md:py-6 
+               text-base md:text-lg font-semibold 
+               rounded-2xl border border-white/30 
+               hover:scale-105 hover:-translate-y-1 
+               w-full sm:w-auto"
+                >
+                  {/* Hover effekt uchun oq chiziq */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent 
+                    opacity-0 group-hover:opacity-100 
+                    transition-opacity duration-500"></div>
+
+                  <Mail className="mr-2 md:mr-3 h-5 w-5 md:h-6 md:w-6 
+                     transition-transform duration-300 
+                     group-hover:rotate-12" />
                   <span className="relative z-10">Loyiha Buyurtma Berish</span>
-                
-              </Button>
+                </Button>
               </a>
+
             </div>
           </div>
         </div>
@@ -405,53 +441,69 @@ type Project = {
         </div>
       </section>
 
-      <section id="services" className="py-16 md:py-20 lg:py-24 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16 md:mb-20">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-stone-800 mb-4 md:mb-6">
-              Professional Xizmatlarim
-            </h2>
-            <p className="text-lg md:text-xl text-stone-600 max-w-3xl mx-auto px-4">
-              Arxitektura va dizayn sohasida to'liq spektr xizmatlarni taqdim etaman. Loyihaning boshlanishidan
-              yakunlanishiga qadar professional yordam.
-            </p>
-          </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto">
-            {services.map((service, index) => {
-              const Icon = service.icon
-              return (
-                <Card
-                  key={index}
-                  className="group hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border-stone-200 bg-white relative overflow-hidden"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-orange-500/5 to-red-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <CardContent className="p-6 md:p-8 relative z-10">
-                    <div className="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 md:mb-6 bg-gradient-to-br from-amber-500 via-orange-500 to-red-500 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-lg">
-                      <Icon className="h-8 w-8 md:h-10 md:w-10 text-white" />
-                    </div>
-                    <h3 className="text-lg md:text-xl font-bold text-stone-800 mb-3 md:mb-4 text-center">
-                      {service.name}
-                    </h3>
-                    <p className="text-stone-600 mb-4 md:mb-6 text-center leading-relaxed text-sm md:text-base">
-                      {service.description}
-                    </p>
+<section id="services" className="py-16 md:py-20 lg:py-24 bg-black">
+  <div className="container mx-auto px-4">
+    <div className="text-center mb-16 md:mb-20">
+      <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 md:mb-6">
+        Professional Xizmatlarim
+      </h2>
+      <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto px-4">
+        Arxitektura va dizayn sohasida to'liq spektr xizmatlarni taqdim etaman.
+        Loyihaning boshlanishidan yakunlanishiga qadar professional yordam.
+      </p>
+    </div>
 
-                    <div className="space-y-2 md:space-y-3">
-                      {service.features.map((feature, idx) => (
-                        <div key={idx} className="flex items-center text-stone-700">
-                          <div className="w-2 h-2 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mr-3 flex-shrink-0"></div>
-                          <span className="text-sm md:text-base">{feature}</span>
-                        </div>
-                      ))}
+    <Swiper
+      modules={[Autoplay]}
+      autoplay={{
+        delay: 3000,
+        disableOnInteraction: false,
+      }}
+      loop={true}
+      spaceBetween={20}
+      breakpoints={{
+        320: { slidesPerView: 1 },  // telefon
+        640: { slidesPerView: 2 },  // planshet
+        1024: { slidesPerView: 3 }, // katta ekran
+      }}
+      className="max-w-7xl mx-auto"
+    >
+      {services.map((service, index) => {
+        const Icon = service.icon
+        return (
+          <SwiperSlide key={index}>
+            <Card className="group hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border-gray-700 bg-gray-900 relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-gray-700/10 via-gray-600/10 to-gray-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <CardContent className="p-6 md:p-8 relative z-10">
+                <div className="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 md:mb-6 bg-gradient-to-br from-gray-700 via-gray-600 to-gray-500 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-lg">
+                  <Icon className="h-8 w-8 md:h-10 md:w-10 text-white" />
+                </div>
+                <h3 className="text-lg md:text-xl font-bold text-white mb-3 md:mb-4 text-center">
+                  {service.name}
+                </h3>
+                <p className="text-gray-300 mb-4 md:mb-6 text-center leading-relaxed text-sm md:text-base">
+                  {service.description}
+                </p>
+                <div className="space-y-2 md:space-y-3">
+                  {service.features.map((feature, idx) => (
+                    <div key={idx} className="flex items-center text-gray-200">
+                      <div className="w-2 h-2 bg-gradient-to-r from-gray-400 to-gray-600 rounded-full mr-3 flex-shrink-0"></div>
+                      <span className="text-sm md:text-base">{feature}</span>
                     </div>
-                  </CardContent>
-                </Card>
-              )
-            })}
-          </div>
-        </div>
-      </section>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </SwiperSlide>
+        )
+      })}
+    </Swiper>
+  </div>
+</section>
+
+
+
 
       {/* Enhanced Experience Section */}
       <section id="experience" className="py-16 md:py-20 lg:py-24 bg-gradient-to-br from-stone-50 to-amber-50">
@@ -538,66 +590,66 @@ type Project = {
                         src={project.image || "/placeholder.svg"}
                         alt={project.title}
                         className="w-full h-64 md:h-80 lg:h-96 object-cover rounded-xl shadow-lg group-hover:scale-[1.02] transition-transform duration-500"
-                          onClick={() => {
-    setSelectedProject(project);
-    setSelectedImage(project.image); 
-    setIsOpen(true);
-  }}
-                     />
-                     {isOpen && selectedProject && (
-  <div 
-    className="fixed inset-0 flex items-center justify-center z-50"
-    style={{
-      backgroundImage: `url(${selectedImage})`,
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-    }}
-  >
-    <div className="absolute inset-0 bg-black/70"></div>
+                        onClick={() => {
+                          setSelectedProject(project);
+                          setSelectedImage(project.image);
+                          setIsOpen(true);
+                        }}
+                      />
+                      {isOpen && selectedProject && (
+                        <div
+                          className="fixed inset-0 flex items-center justify-center z-50"
+                          style={{
+                            backgroundImage: `url(${selectedImage})`,
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                          }}
+                        >
+                          <div className="absolute inset-0 bg-black/70"></div>
 
-    <div className="relative  p-6 rounded-xl max-w-4xl w-full z-10">
-      <img
-        src={selectedImage}
-        alt={selectedProject.title}
-        className="w-full h-[400px] object-cover rounded-lg mb-4"
-      />
+                          <div className="relative  p-6 rounded-xl max-w-4xl w-full z-10">
+                            <img
+                              src={selectedImage}
+                              alt={selectedProject.title}
+                              className="w-full h-[400px] object-cover rounded-lg mb-4"
+                            />
 
-      <div className="flex gap-2 overflow-x-auto">
-        {[selectedProject.image, ...(selectedProject.images || [])].map((img, i) => (
-          <img
-            key={i}
-            src={img}
-            onClick={() => setSelectedImage(img)}
-            className={`w-20 h-20 object-cover rounded-lg cursor-pointer border-2 transition 
+                            <div className="flex gap-2 overflow-x-auto">
+                              {[selectedProject.image, ...(selectedProject.images || [])].map((img, i) => (
+                                <img
+                                  key={i}
+                                  src={img}
+                                  onClick={() => setSelectedImage(img)}
+                                  className={`w-20 h-20 object-cover rounded-lg cursor-pointer border-2 transition 
               ${selectedImage === img ? "border-orange-500" : "border-transparent"}`}
-          />
-        ))}
-      </div>
+                                />
+                              ))}
+                            </div>
 
-      <button
-        onClick={() => setIsOpen(false)}
-        className="absolute top-3 right-3 bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600"
-      >
-        ✕
-      </button>
-    </div>
-  </div>
-)}
-
-                       <div className="flex gap-2 mt-4 overflow-x-auto">
-        
-                      {project.featured && (
-                        <Badge className="absolute top-4 md:top-6 left-4 md:left-6 bg-gradient-to-r from-yellow-500 to-orange-500 text-white shadow-lg text-xs md:text-sm">
-                          <Star className="w-3 h-3 md:w-4 md:h-4 mr-1" />
-                          Tanlangan
-                        </Badge>
+                            <button
+                              onClick={() => setIsOpen(false)}
+                              className="absolute top-3 right-3 bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600"
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        </div>
                       )}
-                      <div className="absolute top-4 md:top-6 right-4 md:right-6 bg-white/90 backdrop-blur-sm px-2 md:px-3 py-1 rounded-full">
-                        <span className="text-xs md:text-sm font-medium text-stone-700">{project.year}</span>
+
+                      <div className="flex gap-2 mt-4 overflow-x-auto">
+
+                        {project.featured && (
+                          <Badge className="absolute top-4 md:top-6 left-4 md:left-6 bg-gradient-to-r from-yellow-500 to-orange-500 text-white shadow-lg text-xs md:text-sm">
+                            <Star className="w-3 h-3 md:w-4 md:h-4 mr-1" />
+                            Tanlangan
+                          </Badge>
+                        )}
+                        <div className="absolute top-4 md:top-6 right-4 md:right-6 bg-white/90 backdrop-blur-sm px-2 md:px-3 py-1 rounded-full">
+                          <span className="text-xs md:text-sm font-medium text-stone-700">{project.year}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
                 </div>
                 <div className="w-full lg:w-1/2 space-y-6 md:space-y-8">
                   <div>

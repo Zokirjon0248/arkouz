@@ -3,9 +3,8 @@
 import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
 import "swiper/css/navigation"
-import { Autoplay, Navigation } from "swiper/modules"
+import { Autoplay } from "swiper/modules"
 
-import { Typewriter } from "react-simple-typewriter"
 
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -266,13 +265,13 @@ export default function ArchitecturePortfolio() {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % bgImages.length)
-    }, 4000) // 5 soniyada almashadi
+    }, 4000)
     return () => clearInterval(interval)
   }, [])
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-stone-900 to-black text-white">
-
+ 
       <motion.header
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -424,15 +423,7 @@ export default function ArchitecturePortfolio() {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
             Professional{" "}
             <span className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent">
-              <Typewriter
-                words={["Arxitektor", "Dizayner", "Loyihachi", "3D Vizualizator", "Arko jamoasi"]}
-                loop={0} // cheksiz aylanadi
-                cursor
-                cursorStyle="|"
-                typeSpeed={100}
-                deleteSpeed={60}
-                delaySpeed={2000} // har so'zdan keyin kutish vaqti
-              />
+              Arko jamoasi
             </span>
           </h1>
 
@@ -513,13 +504,13 @@ export default function ArchitecturePortfolio() {
 
 
       {/* Enhanced Experience Section */}
-      <section id="experience" className="py-16 md:py-20 lg:py-24 bg-gradient-to-br from-stone-50 to-amber-50">
+      <section id="experience" className="py-16 md:py-20 lg:py-24 bg-black">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 md:mb-20">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-stone-800 mb-4 md:mb-6">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 md:mb-6">
               Professional Tajribam
             </h2>
-            <p className="text-lg md:text-xl text-stone-600 max-w-3xl mx-auto px-4">
+            <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto px-4">
               5 yillik professional faoliyat davomida turli xil loyihalarda ishladim
             </p>
           </div>
@@ -527,35 +518,48 @@ export default function ArchitecturePortfolio() {
           <div className="max-w-5xl mx-auto">
             <div className="relative">
               {/* Timeline line */}
-              <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-amber-500 via-orange-500 to-red-500 rounded-full"></div>
+              <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-white via-gray-400 to-white rounded-full"></div>
 
               <div className="space-y-12 md:space-y-16">
                 {experience.map((exp, index) => (
                   <div key={index} className="relative flex items-center">
-                    <div className="absolute left-4 md:left-1/2 w-4 h-4 md:w-6 md:h-6 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full border-2 md:border-4 border-white shadow-xl transform -translate-x-1/2 z-10"></div>
+                    {/* Timeline dot */}
+                    <div className="absolute left-4 md:left-1/2 w-4 h-4 md:w-6 md:h-6 bg-white rounded-full border-2 md:border-4 border-black shadow-xl transform -translate-x-1/2 z-10"></div>
 
                     <Card
-                      className={`ml-16 md:ml-0 ${index % 2 === 0 ? "md:mr-auto md:w-5/12" : "md:ml-auto md:w-5/12"} hover:shadow-xl transition-all duration-300 border-stone-200 bg-white`}
+                      className={`ml-16 md:ml-0 ${index % 2 === 0
+                        ? "md:mr-auto md:w-5/12"
+                        : "md:ml-auto md:w-5/12"
+                        } hover:shadow-xl transition-all duration-300 border-gray-800 bg-gray-900`}
                     >
                       <CardHeader className="pb-4">
                         <div className="flex flex-col gap-2">
-                          <CardTitle className="text-lg md:text-xl text-stone-800">{exp.title}</CardTitle>
-                          <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 text-white w-fit text-xs md:text-sm">
+                          <CardTitle className="text-lg md:text-xl text-white">
+                            {exp.title}
+                          </CardTitle>
+                          <Badge className="bg-white text-black font-medium w-fit text-xs md:text-sm">
                             {exp.period}
                           </Badge>
                         </div>
-                        <CardDescription className="text-amber-600 font-medium text-sm md:text-base">
+                        <CardDescription className="text-gray-400 font-medium text-sm md:text-base">
                           {exp.company}
                         </CardDescription>
                       </CardHeader>
                       <CardContent>
-                        <p className="text-stone-700 mb-4 leading-relaxed text-sm md:text-base">{exp.description}</p>
+                        <p className="text-gray-300 mb-4 leading-relaxed text-sm md:text-base">
+                          {exp.description}
+                        </p>
                         <div className="space-y-2">
-                          <h4 className="font-semibold text-stone-800 text-sm md:text-base">Asosiy yutuqlar:</h4>
+                          <h4 className="font-semibold text-white text-sm md:text-base">
+                            Asosiy yutuqlar:
+                          </h4>
                           <ul className="space-y-1">
                             {exp.achievements.map((achievement, idx) => (
-                              <li key={idx} className="flex items-start text-xs md:text-sm text-stone-600">
-                                <div className="w-1.5 h-1.5 bg-amber-500 rounded-full mr-2 mt-1.5 flex-shrink-0"></div>
+                              <li
+                                key={idx}
+                                className="flex items-start text-xs md:text-sm text-gray-400"
+                              >
+                                <div className="w-1.5 h-1.5 bg-white rounded-full mr-2 mt-1.5 flex-shrink-0"></div>
                                 <span>{achievement}</span>
                               </li>
                             ))}
@@ -572,13 +576,15 @@ export default function ArchitecturePortfolio() {
       </section>
 
       {/* Enhanced Projects Section */}
-      <section id="projects" className="py-16 md:py-20 lg:py-24 bg-white">
+      <section id="projects" className="py-16 md:py-20 lg:py-24 bg-black">
+
+
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 md:mb-20">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-stone-800 mb-4 md:mb-6">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 md:mb-6">
               Eng Yaxshi Loyihalarim
             </h2>
-            <p className="text-lg md:text-xl text-stone-600 max-w-3xl mx-auto px-4">
+            <p className="text-lg md:text-xl text-stone-400 max-w-3xl mx-auto px-4">
               Professional faoliyatim davomida yaratgan eng muvaffaqiyatli loyihalar
             </p>
           </div>
@@ -591,8 +597,8 @@ export default function ArchitecturePortfolio() {
               >
                 <div className="w-full lg:w-1/2">
                   <div className="relative group">
-                    <div className="absolute -inset-1 md:-inset-2 bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-1000"></div>
-                    <div className="relative bg-white p-1 md:p-2 rounded-2xl shadow-xl">
+                    <div className="absolute -inset-1 md:-inset-2  rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-1000"></div>
+                    <div className="relative cursor-pointer p-1 md:p-2 rounded-2xl shadow-xl">
                       <img
                         src={project.image || "/placeholder.svg"}
                         alt={project.title}
@@ -628,7 +634,7 @@ export default function ArchitecturePortfolio() {
                                   src={img}
                                   onClick={() => setSelectedImage(img)}
                                   className={`w-20 h-20 object-cover rounded-lg cursor-pointer border-2 transition 
-              ${selectedImage === img ? "border-orange-500" : "border-transparent"}`}
+              ${selectedImage === img ? "border-white" : "border-transparent"}`}
                                 />
                               ))}
                             </div>
@@ -646,7 +652,7 @@ export default function ArchitecturePortfolio() {
                       <div className="flex gap-2 mt-4 overflow-x-auto">
 
                         {project.featured && (
-                          <Badge className="absolute top-4 md:top-6 left-4 md:left-6 bg-gradient-to-r from-yellow-500 to-orange-500 text-white shadow-lg text-xs md:text-sm">
+                          <Badge className="absolute top-4 md:top-6 left-4 md:left-6 bg-white text-black shadow-lg text-xs md:text-sm">
                             <Star className="w-3 h-3 md:w-4 md:h-4 mr-1" />
                             Tanlangan
                           </Badge>
@@ -663,21 +669,21 @@ export default function ArchitecturePortfolio() {
                     <Badge className="bg-amber-100 text-amber-800 mb-3 md:mb-4 text-xs md:text-sm">
                       {project.category}
                     </Badge>
-                    <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-stone-800 mb-3 md:mb-4">
+                    <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-stone-200 mb-3 md:mb-4">
                       {project.title}
                     </h3>
-                    <p className="text-base md:text-lg lg:text-xl text-stone-600 mb-4 md:mb-6 leading-relaxed">
+                    <p className="text-base md:text-lg lg:text-xl text-stone-400 mb-4 md:mb-6 leading-relaxed">
                       {project.description}
                     </p>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6">
                       <div>
-                        <h4 className="font-semibold text-stone-800 mb-1 text-sm md:text-base">Mijoz</h4>
-                        <p className="text-stone-600 text-sm md:text-base">{project.client}</p>
+                        <h4 className="font-semibold text-stone-400 mb-1 text-sm md:text-base">Mijoz</h4>
+                        <p className="text-stone-200 text-sm md:text-base">{project.client}</p>
                       </div>
                       <div>
-                        <h4 className="font-semibold text-stone-800 mb-1 text-sm md:text-base">Maydon</h4>
-                        <p className="text-stone-600 text-sm md:text-base">{project.area}</p>
+                        <h4 className="font-semibold text-stone-400 mb-1 text-sm md:text-base">Maydon</h4>
+                        <p className="text-stone-200 text-sm md:text-base">{project.area}</p>
                       </div>
                     </div>
                   </div>
@@ -698,8 +704,8 @@ export default function ArchitecturePortfolio() {
                     <div className="flex flex-wrap gap-4 md:gap-6 lg:gap-8 py-4 md:py-6 border-t border-stone-200">
                       {Object.entries(project.stats).map(([key, value]) => (
                         <div key={key} className="text-center">
-                          <div className="text-xl md:text-2xl lg:text-3xl font-bold text-stone-800">{value}</div>
-                          <div className="text-xs md:text-sm text-stone-500 capitalize">{key}</div>
+                          <div className="text-xl md:text-2xl lg:text-3xl font-bold text-stone-100">{value}</div>
+                          <div className="text-xs md:text-sm text-stone-200 capitalize">{key}</div>
                         </div>
                       ))}
                     </div>
@@ -709,6 +715,7 @@ export default function ArchitecturePortfolio() {
                 </div>
               </div>
             ))}
+
           </div>
         </div>
       </section>
@@ -716,20 +723,18 @@ export default function ArchitecturePortfolio() {
       {/* Enhanced Contact Section */}
       <section
         id="contact"
-        className="py-16 md:py-20 lg:py-24 bg-gradient-to-br from-amber-600 via-orange-600 to-red-600 text-white relative overflow-hidden"
+        className="py-16 md:py-20 lg:py-24 bg-black text-white relative overflow-hidden"
       >
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="absolute top-0 left-0 w-full h-full">
-          <div className="absolute top-10 md:top-20 left-10 md:left-20 w-64 h-64 md:w-96 md:h-96 bg-white/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-10 md:bottom-20 right-10 md:right-20 w-48 h-48 md:w-72 md:h-72 bg-white/10 rounded-full blur-3xl"></div>
-        </div>
+
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6">Loyihangizni Muhokama Qilamiz</h2>
-            <p className="text-lg md:text-xl opacity-90 max-w-4xl mx-auto leading-relaxed px-4">
-              Arxitektura va dizayn loyihalaringiz uchun professional maslahat va to'liq xizmat. G'oyalaringizni hayotga
-              tatbiq etishda yordam beraman. Bepul konsultatsiya olish uchun bog'laning.
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6">
+              Loyihangizni Muhokama Qilamiz
+            </h2>
+            <p className="text-lg md:text-xl opacity-80 max-w-4xl mx-auto leading-relaxed px-4">
+              Arxitektura va dizayn loyihalaringiz uchun professional maslahat va to‘liq xizmat.
+              G‘oyalaringizni hayotga tatbiq etishda yordam beraman. Bepul konsultatsiya olish uchun bog‘laning.
             </p>
           </div>
 
@@ -738,19 +743,10 @@ export default function ArchitecturePortfolio() {
               {/* Telegram */}
               <Button
                 size="lg"
-                className="group relative overflow-hidden bg-white text-stone-800 hover:bg-gray-50 hover:scale-105 hover:-translate-y-1 transition-all duration-500 shadow-xl hover:shadow-blue-400/40 px-6 md:px-8 py-3 md:py-4 text-sm md:text-base font-bold rounded-xl border-0 w-full sm:w-auto"
+                className="group relative overflow-hidden bg-white text-black hover:bg-gray-200 hover:scale-105 hover:-translate-y-1 transition-all duration-500 shadow-xl px-6 md:px-8 py-3 md:py-4 text-sm md:text-base font-bold rounded-xl border-0 w-full sm:w-auto"
                 asChild
               >
                 <a href="https://t.me/arko_uz" target="_blank" rel="noopener noreferrer">
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="mr-2 md:mr-2.5 h-4 w-4 md:h-5 md:w-5 text-blue-500 group-hover:rotate-12 transition-transform duration-300"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M9.999 15.168 9.965 20l2.986-4.504 6.748 4.86 3.301-15.356L2.001 11.41l4.883 1.68L19.2 6.278z" />
-                  </svg>
                   <span className="relative z-10">Telegram</span>
                 </a>
               </Button>
@@ -758,43 +754,47 @@ export default function ArchitecturePortfolio() {
               {/* Instagram */}
               <Button
                 size="lg"
-                className="group relative overflow-hidden bg-white text-stone-800 hover:bg-gray-50 hover:scale-105 hover:-translate-y-1 transition-all duration-500 shadow-xl hover:shadow-pink-400/40 px-6 md:px-8 py-3 md:py-4 text-sm md:text-base font-bold rounded-xl border-0 w-full sm:w-auto"
+                className="group relative overflow-hidden bg-white text-black hover:bg-gray-200 hover:scale-105 hover:-translate-y-1 transition-all duration-500 shadow-xl px-6 md:px-8 py-3 md:py-4 text-sm md:text-base font-bold rounded-xl border-0 w-full sm:w-auto"
                 asChild
               >
-                <a href="https://www.instagram.com/arko.uz?igsh=NzRrcWpnMHhndnU0" target="_blank" rel="noopener noreferrer">
-                  <div className="absolute inset-0 bg-gradient-to-r from-pink-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="mr-2 md:mr-2.5 h-4 w-4 md:h-5 md:w-5 text-pink-500 group-hover:rotate-12 transition-transform duration-300"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h10zm-5 3a5 5 0 1 0 .001 10.001A5 5 0 0 0 12 7zm0 2a3 3 0 1 1-.001 6.001A3 3 0 0 1 12 9zm4.5-4a1.5 1.5 0 1 0-.001 3.001A1.5 1.5 0 0 0 16.5 5z" />
-                  </svg>
+                <a
+                  href="https://www.instagram.com/arko.uz?igsh=NzRrcWpnMHhndnU0"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <span className="relative z-10">Instagram</span>
                 </a>
               </Button>
             </div>
           </div>
-
-
         </div>
       </section>
 
-      <footer className="py-12 md:py-16 bg-stone-900 text-white">
+      <footer className="py-12 md:py-16 bg-black">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex items-center space-x-2 md:space-x-3">
-              <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-amber-500 via-orange-500 to-red-500 rounded-lg flex items-center justify-center">
-                <Building2 className="w-4 h-4 md:w-6 md:h-6 text-white" />
+
+            {/* Logo + Text */}
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10  rounded-xl flex items-center justify-center overflow-hidden">
+                <img
+                  src="/logo.png"
+                  alt="ArchDesign Logo"
+                  className="w-10 h-10 object-contain rounded-4xl rounded-b-4xl"
+                />
               </div>
+
               <div>
-                <span className="text-lg md:text-xl font-bold">ArchDesign</span>
+                <span className="text-lg md:text-xl font-bold tracking-wide">Arko.uz</span>
                 <p className="text-xs md:text-sm text-stone-400">Professional Arxitektor</p>
               </div>
             </div>
+
+            {/* Right Text */}
             <div className="text-center md:text-right">
-              <p className="text-stone-400 text-base md:text-lg">© 2024 Professional Arxitektor Portfolio</p>
+              <p className="text-stone-300 text-base md:text-lg">
+                © 2024 Professional Arxitektor Portfolio
+              </p>
               <p className="text-stone-500 text-xs md:text-sm mt-1">
                 5+ yillik tajriba bilan professional arxitektura xizmatlari
               </p>
@@ -803,14 +803,22 @@ export default function ArchitecturePortfolio() {
         </div>
       </footer>
 
+
       {showScrollTop && (
-        <button
-          onClick={scrollToTop}
-          className="group fixed bottom-4 md:bottom-8 right-4 md:right-8 w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-amber-600 via-orange-600 to-red-600 text-white rounded-2xl shadow-2xl hover:shadow-amber-500/25 transition-all duration-500 hover:scale-110 hover:-translate-y-2 z-50 border-2 border-white/20"
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
-          <ArrowUp className="w-6 h-6 md:w-8 md:h-8 mx-auto group-hover:scale-110 transition-transform duration-300" />
-        </button>
+    <button
+  onClick={scrollToTop}
+  className="group fixed bottom-4 md:bottom-8 right-4 md:right-8 
+             w-12 h-12 md:w-16 md:h-16 
+             bg-black text-white 
+             rounded-2xl shadow-2xl 
+             hover:bg-white hover:text-black 
+             transition-all duration-500 
+             hover:scale-110 hover:-translate-y-2 
+             z-50 border border-white/20"
+>
+  <ArrowUp className="w-6 h-6 md:w-8 md:h-8 mx-auto group-hover:scale-110 transition-transform duration-300" />
+</button>
+
       )}
     </div>
   )

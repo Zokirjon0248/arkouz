@@ -108,6 +108,8 @@ export default function ArchitecturePortfolio() {
   const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
 
 
+  // const [isOpen, setIsOpen] = useState(false)
+  //   const [selectedImage, setSelectedImage] = useState<string | null>(null)
   const projects = [
     {
       title: "Zamonaviy Turar-joy Majmuasi",
@@ -201,7 +203,6 @@ export default function ArchitecturePortfolio() {
 
 
 
-
   const experience = [
     {
       title: "Katta Arxitektor",
@@ -256,32 +257,36 @@ export default function ArchitecturePortfolio() {
     "/image3.jpg",
     "/image4.png",
   ]
-
-
-  const vantaRef = useRef(null);
-
-  useEffect(() => {
-    let vantaEffect: any;
-    if (vantaRef.current) {
-      vantaEffect = NET({
-        el: vantaRef.current,
-        THREE,
-        color: 0xffffff,
-        backgroundColor: 0x000000,
-        points: 18,
-        maxDistance: 22,
-        spacing: 15,
-        showDots: true,
-      });
+  const [currentIndex, setCurrentIndex] = useState<number | null>(null)
+  const handlePrev = () => {
+    if (currentIndex !== null) {
+      setCurrentIndex((currentIndex - 1 + bgImages.length) % bgImages.length)
     }
+  }
 
-    return () => {
-      if (vantaEffect) vantaEffect.destroy();
-    };
-  }, []);
+  const handleNext = () => {
+    if (currentIndex !== null) {
+      setCurrentIndex((currentIndex + 1) % bgImages.length)
+    }
+  }
+
+
+
+
+
+
   return (
     <div className="  min-h-screen relative  text-white pt-20">
-      <div ref={vantaRef} className="absolute inset-0 -z-10 w-full h-full" />
+<video
+  autoPlay
+  muted
+  loop
+  playsInline
+  className="fixed top-0 left-0 w-[100vw] h-[100vh] object-cover -z-10"
+>
+  <source src="/architecture.mp4" type="video/mp4" />
+</video>
+
 
       <motion.header
         initial={{ y: -80, opacity: 0 }}
@@ -581,29 +586,65 @@ export default function ArchitecturePortfolio() {
             </p>
           </div>
 
- <div className="w-full max-w-5xl mx-auto py-6">
-      <Swiper
-        modules={[Autoplay]}
-        spaceBetween={10}
-        slidesPerView={1}
-        loop={true}
-        autoplay={{ delay: 2500, disableOnInteraction: false }}
-        breakpoints={{
-          640: { slidesPerView: 2 },
-          1024: { slidesPerView: 3 },
-        }}
-      >
-        {bgImages.map((src, i) => (
-          <SwiperSlide key={i}>
-            <img
-              src={src}
-              alt={`rasm-${i}`}
-              className="w-full h-64 object-cover rounded-xl shadow-lg"
-            />
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </div>
+          <div className="w-full max-w-5xl mx-auto py-6 mb-16">
+            <Swiper
+              modules={[Autoplay]}
+              spaceBetween={10}
+              slidesPerView={1}
+              loop={true}
+              autoplay={{ delay: 2500, disableOnInteraction: false }}
+              breakpoints={{
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+              }}
+            >
+              {bgImages.map((src, i) => (
+                <SwiperSlide key={i}>
+                  <img
+                    src={src}
+                    alt={`rasm-${i}`}
+                    className="w-full h-64 object-cover rounded-xl shadow-lg cursor-pointer"
+                    onClick={() => {
+                      setCurrentIndex(i)
+                      setIsOpen(true)
+                    }}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+
+            {/* Modal (Lightbox) */}
+            {isOpen && currentIndex !== null && (
+              <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50">
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-lg"
+                >
+                  ✕
+                </button>
+
+                <button
+                  onClick={handlePrev}
+                  className="absolute left-6 text-white text-3xl p-2 rounded-full bg-black/40 hover:bg-black/70"
+                >
+                  ‹
+                </button>
+
+                <img
+                  src={bgImages[currentIndex]}
+                  alt={`rasm-${currentIndex}`}
+                  className="max-h-[80vh] max-w-[90vw] object-contain rounded-lg"
+                />
+
+                <button
+                  onClick={handleNext}
+                  className="absolute right-6 text-white text-3xl p-2 rounded-full bg-black/40 hover:bg-black/70"
+                >
+                  ›
+                </button>
+              </div>
+            )}
+          </div>
 
           <div className="space-y-16 md:space-y-20 max-w-7xl mx-auto">
             {projects.map((project, index) => (
@@ -650,7 +691,7 @@ export default function ArchitecturePortfolio() {
                                   src={img}
                                   onClick={() => setSelectedImage(img)}
                                   className={`w-20 h-20 object-cover rounded-lg cursor-pointer border-2 transition 
-              ${selectedImage === img ? "border-white" : "border-transparent"}`}
+                ${selectedImage === img ? "border-white" : "border-transparent"}`}
                                 />
                               ))}
                             </div>
@@ -826,13 +867,13 @@ export default function ArchitecturePortfolio() {
         <button
           onClick={scrollToTop}
           className="group fixed bottom-4 md:bottom-8 right-4 md:right-8 
-             w-12 h-12 md:w-16 md:h-16 
-             bg-black text-white 
-             rounded-2xl shadow-2xl 
-             hover:bg-white hover:text-black 
-             transition-all duration-500 
-             hover:scale-110 hover:-translate-y-2 
-             z-50 border border-white/20"
+              w-12 h-12 md:w-16 md:h-16 
+              bg-black text-white 
+              rounded-2xl shadow-2xl 
+              hover:bg-white hover:text-black 
+              transition-all duration-500 
+              hover:scale-110 hover:-translate-y-2 
+              z-50 border border-white/20"
         >
           <ArrowUp className="w-6 h-6 md:w-8 md:h-8 mx-auto group-hover:scale-110 transition-transform duration-300" />
         </button>

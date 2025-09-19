@@ -277,15 +277,15 @@ export default function ArchitecturePortfolio() {
 
   return (
     <div className="  min-h-screen relative  text-white pt-20">
-<video
-  autoPlay
-  muted
-  loop
-  playsInline
-  className="fixed top-0 left-0 w-[100vw] h-[100vh] object-cover -z-10"
->
-  <source src="/architecture.mp4" type="video/mp4" />
-</video>
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="fixed top-0 left-0 w-[100vw] h-[100vh] object-cover -z-10"
+      >
+        <source src="/architecture.mp4" type="video/mp4" />
+      </video>
 
 
       <motion.header
@@ -304,13 +304,11 @@ export default function ArchitecturePortfolio() {
               transition={{ duration: 0.7, delay: 0.2 }}
               className="flex items-center space-x-2 md:space-x-3"
             >
-              <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br rounded-xl flex items-center justify-center shadow-lg">
                 <img
-                  src="/logo.png"
+                  src="/IMG_0184.png"
                   alt="Logo"
-                  className="w-6 h-6 md:w-10 md:h-10 object-contain rounded-3xl"
+                  className="w-6 h-6 md:w-10 md:h-10 object-contain rounded-2xl"
                 />
-              </div>
               <div>
                 <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r text-white bg-clip-text">
                   Arkouz
@@ -836,10 +834,10 @@ export default function ArchitecturePortfolio() {
             {/* Logo + Text */}
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10  rounded-xl flex items-center justify-center overflow-hidden">
-                <img
-                  src="/logo.png"
-                  alt="ArchDesign Logo"
-                  className="w-10 h-10 object-contain rounded-4xl rounded-b-4xl"
+                  <img
+                  src="/IMG_0184.png"
+                  alt="Logo"
+                  className="w-6 h-6 md:w-10 md:h-10 object-contain rounded-2xl"
                 />
               </div>
 

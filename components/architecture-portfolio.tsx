@@ -1,11 +1,10 @@
 "use client"
 import { FaTelegramPlane, FaInstagram } from "react-icons/fa";
-import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
 import "swiper/css/navigation"
+import { Swiper, SwiperSlide } from "swiper/react"
 import { Autoplay } from "swiper/modules"
-import * as THREE from "three";
-import NET from "vanta/dist/vanta.net.min";
+import "swiper/css/navigation"
 
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -14,26 +13,17 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import {
-  Mail,
-  ExternalLink,
   PenTool,
   Home,
   Building2,
-  Instagram,
-  MessageCircle,
-  Menu,
   X,
-  ChevronDown,
+  Menu,
   Star,
-  Award,
-  Users,
-  Coffee,
   ArrowUp,
   Palette,
   Layout,
   Camera,
 } from "lucide-react"
-import { Project } from "next/dist/build/swc"
 
 export default function ArchitecturePortfolio() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -103,13 +93,8 @@ export default function ArchitecturePortfolio() {
 
 
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
 
 
-  // const [isOpen, setIsOpen] = useState(false)
-  //   const [selectedImage, setSelectedImage] = useState<string | null>(null)
   const projects = [
     {
       title: "Zamonaviy Turar-joy Majmuasi",
@@ -120,14 +105,14 @@ export default function ArchitecturePortfolio() {
       year: "2024",
       client: "DevCorp Construction",
       tech: ["AutoCAD", "3ds Max", "SketchUp", "Lumion"],
-      image: "/image4.png",
+      image: "/grup1.1.jpg",
       featured: true,
       stats: { xonalar: "120", qavatlar: "12", maydon: "15k m²" },
       images: [
-        "/image1.jpg",
-        "/image2.jpg",
-        "/image3.jpg",
-        "/image4.png"
+        "/grup1.2.jpg",
+        "/grup1.3.jpg",
+        "/grup1.4.jpg",
+        "/grup1.5.jpg"
       ]
     },
     {
@@ -138,14 +123,13 @@ export default function ArchitecturePortfolio() {
       year: "2023",
       client: "Business Plaza LLC",
       tech: ["Revit", "Rhino", "V-Ray", "Photoshop"],
-      image: "/image1.jpg",
+      image: "/grup2.1.jpg",
       featured: true,
       stats: { ofislar: "50+", dokonlar: "25", parking: "200" },
       images: [
-        "/image1.jpg",
-        "/image2.jpg",
-        "/image3.jpg",
-        "/image4.png"
+        "/grup2.2.jpg",
+        "/grup2.3.jpg",
+        "/grup2.4.jpg"
       ]
     },
     {
@@ -157,14 +141,11 @@ export default function ArchitecturePortfolio() {
       year: "2023",
       client: "Shaxsiy Mijoz",
       tech: ["3ds Max", "Corona Renderer", "Photoshop", "AutoCAD"],
-      image: "/image2.jpg",
+      image: "/grup3.1.jpg",
       featured: false,
       stats: { xonalar: "8", hammomlar: "4", uslub: "Zamonaviy" },
       images: [
-        "/image1.jpg",
-        "/image2.jpg",
-        "/image3.jpg",
-        "/image4.png"
+        "/grup3.2.jpg",
       ]
     },
     {
@@ -175,14 +156,50 @@ export default function ArchitecturePortfolio() {
       year: "2022",
       client: "Toshkent Hokimligi",
       tech: ["SketchUp", "Lumion", "AutoCAD", "GIS"],
-      image: "/image3.jpg",
+      image: "/grup4.1.jpg",
       featured: false,
       stats: { daraxtlar: "500+", yolaklar: "2km", hududlar: "15" },
       images: [
-        "/image1.jpg",
-        "/image2.jpg",
-        "/image3.jpg",
-        "/image4.png"
+        "/grup4.2.jpg",
+        "/grup4.3.jpg",
+        "/grup4.4.jpg"
+      ]
+    },
+    {
+      title: "Shahar Parki Loyihasi",
+      description: "10 gektar maydondagi shahar parki. Yashil zonalar, sport maydonlari va dam olish hududlari.",
+      category: "Peyzaj Arxitekturasi",
+      area: "10 gektar",
+      year: "2022",
+      client: "Toshkent Hokimligi",
+      tech: ["SketchUp", "Lumion", "AutoCAD", "GIS"],
+      image: "/grup5.1.jpg",
+      featured: false,
+      stats: { daraxtlar: "500+", yolaklar: "2km", hududlar: "15" },
+      images: [
+        "/grup5.2.jpg",
+        "/grup5.3.jpg",
+        "/grup5.4.jpg",
+        "/grup5.5.jpg"
+      ]
+    },
+    {
+      title: "Shahar Parki Loyihasi",
+      description: "10 gektar maydondagi shahar parki. Yashil zonalar, sport maydonlari va dam olish hududlari.",
+      category: "Peyzaj Arxitekturasi",
+      area: "10 gektar",
+      year: "2022",
+      client: "Toshkent Hokimligi",
+      tech: ["SketchUp", "Lumion", "AutoCAD", "GIS"],
+      image: "/grup6.1.jpg",
+      featured: false,
+      stats: { daraxtlar: "500+", yolaklar: "2km", hududlar: "15" },
+      images: [
+        "/grup6.2.jpg",
+        "/grup6.3.jpg",
+        "/grup6.4.jpg",
+        "/grup6.5.jpg",
+        "/grup6.6.jpg"
       ]
     },
   ]
@@ -252,27 +269,63 @@ export default function ArchitecturePortfolio() {
 
 
   const bgImages = [
-    "/image1.jpg",
-    "/image2.jpg",
-    "/image3.jpg",
-    "/image4.png",
+    "/grup1.1.jpg",
+    "/grup1.2.jpg",
+    "/grup1.3.jpg",
+    "/grup1.4.jpg",
+    "/grup1.5.jpg",
+    "/grup2.1.jpg",
+    "/grup2.2.jpg",
+    "/grup2.3.jpg",
+    "/grup2.4.jpg",
+    "/grup3.1.jpg",
+    "/grup3.2.jpg",
+    "/grup4.1.jpg",
+    "/grup4.2.jpg",
+    "/grup4.3.jpg",
+    "/grup4.4.jpg",
+    "/grup5.1.jpg",
+    "/grup5.2.jpg",
+    "/grup5.3.jpg",
+    "/grup5.4.jpg",
+    "/grup5.5.jpg",
+    "/grup6.1.jpg",
+    "/grup6.2.jpg",
+    "/grup6.3.jpg",
+    "/grup6.4.jpg",
+    "/grup6.5.jpg",
+    "/grup6.6.jpg"
   ]
-  const [currentIndex, setCurrentIndex] = useState<number | null>(null)
-  const handlePrev = () => {
-    if (currentIndex !== null) {
-      setCurrentIndex((currentIndex - 1 + bgImages.length) % bgImages.length)
-    }
-  }
+  const [isModalOpen, setModalOpen] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(0)
 
-  const handleNext = () => {
-    if (currentIndex !== null) {
-      setCurrentIndex((currentIndex + 1) % bgImages.length)
-    }
+  // Bitta umumiy funksiya
+  const changeSlide = (direction: number) => {
+    setCurrentIndex((prev) => (prev + direction + bgImages.length) % bgImages.length)
   }
 
 
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
 
+useEffect(() => {
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "Escape") setModalOpen(false);
+    if (e.key === "ArrowLeft") changeSlide(-1);
+    if (e.key === "ArrowRight") changeSlide(1);
+  };
+  window.addEventListener("keydown", handleKeyDown);
+  return () => window.removeEventListener("keydown", handleKeyDown);
+}, []);
 
+useEffect(() => {
+  if (isModalOpen) {
+    document.body.classList.add("overflow-hidden");
+  } else {
+    document.body.classList.remove("overflow-hidden");
+  }
+}, [isModalOpen]);
 
 
   return (
@@ -304,14 +357,14 @@ export default function ArchitecturePortfolio() {
               transition={{ duration: 0.7, delay: 0.2 }}
               className="flex items-center space-x-2 md:space-x-3"
             >
-                <img
-                  src="/IMG_0184.png"
-                  alt="Logo"
-                  className="w-6 h-6 md:w-10 md:h-10 object-contain rounded-2xl"
-                />
+              <img
+                src="/IMG_0184.png"
+                alt="Logo"
+                className="w-6 h-6 md:w-10 md:h-10 object-contain rounded-2xl"
+              />
               <div>
                 <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r text-white bg-clip-text">
-                  Arkouz
+                  Arko.uz
                 </h1>
                 <p className="text-xs text-white hidden sm:block">
                   Professional Arxitektor
@@ -438,7 +491,7 @@ export default function ArchitecturePortfolio() {
         </div>
       </section>
 
-      <section id="services" className="py-16 md:py-20 lg:py-24 ">
+      <section id="services" className="py-16 md:py-20 lg:py-24   ">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 md:mb-20">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 md:mb-6">
@@ -469,7 +522,7 @@ export default function ArchitecturePortfolio() {
               const Icon = service.icon
               return (
                 <SwiperSlide key={index}>
-                  <Card className="group hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border-gray-700 bg-gray-900 relative overflow-hidden">
+                  <Card className="group hover:shadow-2xl transition-all  bg-transparent duration-500 hover:-translate-y-3 relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-br from-gray-700/10 via-gray-600/10 to-gray-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     <CardContent className="p-6 md:p-8 relative z-10">
                       <div className="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 md:mb-6 bg-gradient-to-br from-gray-700 via-gray-600 to-gray-500 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-lg">
@@ -499,7 +552,7 @@ export default function ArchitecturePortfolio() {
       </section>
 
       {/* Enhanced Experience Section */}
-      <section id="experience" className="py-16 md:py-20 lg:py-24 ">
+      <section id="experience" className="py-16 md:py-20 lg:py-24  ">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 md:mb-20">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 md:mb-6">
@@ -525,7 +578,7 @@ export default function ArchitecturePortfolio() {
                       className={`ml-16 md:ml-0 ${index % 2 === 0
                         ? "md:mr-auto md:w-5/12"
                         : "md:ml-auto md:w-5/12"
-                        } hover:shadow-xl transition-all duration-300 border-gray-800 bg-gray-900`}
+                        } hover:shadow-xl transition-all duration-300 border-gray-800 bg-transparent`}
                     >
                       <CardHeader className="pb-4">
                         <div className="flex flex-col gap-2">
@@ -536,12 +589,12 @@ export default function ArchitecturePortfolio() {
                             {exp.period}
                           </Badge>
                         </div>
-                        <CardDescription className="text-gray-400 font-medium text-sm md:text-base">
+                        <CardDescription className="text-white font-medium text-sm md:text-base">
                           {exp.company}
                         </CardDescription>
                       </CardHeader>
                       <CardContent>
-                        <p className="text-gray-300 mb-4 leading-relaxed text-sm md:text-base">
+                        <p className="text-white mb-4 leading-relaxed text-sm md:text-base">
                           {exp.description}
                         </p>
                         <div className="space-y-2">
@@ -552,7 +605,7 @@ export default function ArchitecturePortfolio() {
                             {exp.achievements.map((achievement, idx) => (
                               <li
                                 key={idx}
-                                className="flex items-start text-xs md:text-sm text-gray-400"
+                                className="flex items-start text-xs md:text-sm text-white"
                               >
                                 <div className="w-1.5 h-1.5 bg-white rounded-full mr-2 mt-1.5 flex-shrink-0"></div>
                                 <span>{achievement}</span>
@@ -584,66 +637,75 @@ export default function ArchitecturePortfolio() {
             </p>
           </div>
 
-          <div className="w-full max-w-5xl mx-auto py-6 mb-16">
-            <Swiper
-              modules={[Autoplay]}
-              spaceBetween={10}
-              slidesPerView={1}
-              loop={true}
-              autoplay={{ delay: 2500, disableOnInteraction: false }}
-              breakpoints={{
-                640: { slidesPerView: 2 },
-                1024: { slidesPerView: 3 },
-              }}
-            >
-              {bgImages.map((src, i) => (
-                <SwiperSlide key={i}>
-                  <img
-                    src={src}
-                    alt={`rasm-${i}`}
-                    className="w-full h-64 object-cover rounded-xl shadow-lg cursor-pointer"
-                    onClick={() => {
-                      setCurrentIndex(i)
-                      setIsOpen(true)
-                    }}
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
+       
 
-            {/* Modal (Lightbox) */}
-            {isOpen && currentIndex !== null && (
-              <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50">
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-lg"
-                >
-                  ✕
-                </button>
+        <div className="w-full max-w-5xl mx-auto py-6 mb-16">
+      {/* Swiper */}
+   <Swiper
+  modules={[Autoplay]}
+  spaceBetween={10}
+  slidesPerView={1}
+  loop
+  autoplay={{ delay: 2500, disableOnInteraction: false }}
+  breakpoints={{
+    640: { slidesPerView: 2 },
+    1024: { slidesPerView: 3 },
+  }}
+>
+  {bgImages.map((src, i) => (
+    <SwiperSlide key={src}>
+      <img
+        src={src}
+        alt={`rasm-${i}`}
+        loading="lazy"
+        className="w-full h-64 object-cover rounded-xl shadow-lg cursor-pointer transition-transform hover:scale-105"
+        onClick={() => {
+          setCurrentIndex(i);
+          setModalOpen(true);
+        }}
+      />
+    </SwiperSlide>
+  ))}
+</Swiper>
 
-                <button
-                  onClick={handlePrev}
-                  className="absolute left-6 text-white text-3xl p-2 rounded-full bg-black/40 hover:bg-black/70"
-                >
-                  ‹
-                </button>
+{/* Modal (Lightbox) */}
+{isModalOpen && (
+  <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50">
+    {/* Close */}
+    <button
+      onClick={() => setModalOpen(false)}
+      className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-lg"
+    >
+      ✕
+    </button>
 
-                <img
-                  src={bgImages[currentIndex]}
-                  alt={`rasm-${currentIndex}`}
-                  className="max-h-[80vh] max-w-[90vw] object-contain rounded-lg"
-                />
+    {/* Prev */}
+    <button
+      onClick={() => changeSlide(-1)}
+      className="absolute left-6 text-white text-3xl p-2 rounded-full bg-black/40 hover:bg-black/70"
+    >
+      ‹
+    </button>
 
-                <button
-                  onClick={handleNext}
-                  className="absolute right-6 text-white text-3xl p-2 rounded-full bg-black/40 hover:bg-black/70"
-                >
-                  ›
-                </button>
-              </div>
-            )}
-          </div>
+    {/* Image */}
+    <img
+      src={bgImages[currentIndex]}
+      alt={`rasm-${currentIndex}`}
+      loading="lazy"
+      className="max-w-[90vw] max-h-[90vh] object-contain"
+    />
 
+    {/* Next */}
+    <button
+      onClick={() => changeSlide(1)}
+      className="absolute right-6 text-white text-3xl p-2 rounded-full bg-black/40 hover:bg-black/70"
+    >
+      ›
+    </button>
+  </div>
+)}
+
+    </div>
           <div className="space-y-16 md:space-y-20 max-w-7xl mx-auto">
             {projects.map((project, index) => (
               <div
@@ -665,44 +727,39 @@ export default function ArchitecturePortfolio() {
                         }}
                       />
                       {isOpen && selectedProject && (
-                        <div
-                          className="fixed inset-0 flex items-center justify-center z-50"
-                          style={{
-                            backgroundImage: `url(${selectedImage})`,
-                            backgroundSize: "cover",
-                            backgroundPosition: "center",
-                          }}
-                        >
-                          <div className="absolute inset-0 bg-black/70"></div>
+                        <div className="fixed inset-0 flex flex-col items-center justify-center z-50 bg-black">
+                          <img
+                            src={selectedImage}
+                            alt={selectedProject.title}
+                            className="w-screen h-screen object-cover"
+                          />
 
-                          <div className="relative  p-6 rounded-xl max-w-4xl w-full z-10">
-                            <img
-                              src={selectedImage}
-                              alt={selectedProject.title}
-                              className="w-full h-[400px] object-cover rounded-lg mb-4"
-                            />
-
-                            <div className="flex gap-2 overflow-x-auto">
-                              {[selectedProject.image, ...(selectedProject.images || [])].map((img, i) => (
-                                <img
-                                  key={i}
-                                  src={img}
-                                  onClick={() => setSelectedImage(img)}
-                                  className={`w-20 h-20 object-cover rounded-lg cursor-pointer border-2 transition 
-                ${selectedImage === img ? "border-white" : "border-transparent"}`}
-                                />
-                              ))}
-                            </div>
-
-                            <button
-                              onClick={() => setIsOpen(false)}
-                              className="absolute top-3 right-3 bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600"
-                            >
-                              ✕
-                            </button>
+                          {/* Pastki qism - boshqa rasmlar */}
+                          <div className="absolute bottom-0 left-1/2 -translate-x-1/2  rounded-xl w-[40%] my-auto bg-black/70 py-4 flex gap-3 overflow-x-auto px-4 justify-center z-10">
+                            {[selectedProject.image, ...(selectedProject.images || [])].map((img, i) => (
+                              <img
+                                key={i}
+                                src={img}
+                                onClick={() => setSelectedImage(img)}
+                                className={`w-20 h-20 md:w-24 md:h-24 object-cover rounded-lg cursor-pointer border-2 transition 
+            ${selectedImage === img ? "border-amber-400" : "border-transparent"}`}
+                              />
+                            ))}
                           </div>
+
+                          {/* Yopish tugmasi */}
+                          <button
+                            onClick={() => setIsOpen(false)}
+                            className="absolute top-5 right-5 bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 z-10"
+                          >
+                            ✕
+                          </button>
                         </div>
                       )}
+
+
+
+
 
                       <div className="flex gap-2 mt-4 overflow-x-auto">
 
@@ -833,7 +890,7 @@ export default function ArchitecturePortfolio() {
             {/* Logo + Text */}
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10  rounded-xl flex items-center justify-center overflow-hidden">
-                  <img
+                <img
                   src="/IMG_0184.png"
                   alt="Logo"
                   className="w-6 h-6 md:w-10 md:h-10 object-contain rounded-2xl"
@@ -870,7 +927,7 @@ export default function ArchitecturePortfolio() {
               hover:bg-white hover:text-black 
               transition-all duration-500 
               hover:scale-110 hover:-translate-y-2 
-              z-50 border border-white/20"
+              z-40 border border-white/20"
         >
           <ArrowUp className="w-6 h-6 md:w-8 md:h-8 mx-auto group-hover:scale-110 transition-transform duration-300" />
         </button>

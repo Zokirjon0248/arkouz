@@ -1,16 +1,16 @@
 "use client"
-import { FaTelegramPlane, FaInstagram } from "react-icons/fa"
 import type React from "react"
+import { useState, useEffect, useRef, useMemo, useCallback } from "react"
+import { FaTelegramPlane, FaInstagram } from "react-icons/fa"
 
 import "swiper/css"
 import "swiper/css/navigation"
+import "swiper/css/pagination"
 import { Swiper, SwiperSlide } from "swiper/react"
-import { Autoplay } from "swiper/modules"
-import "swiper/css/navigation"
+import { Autoplay, Navigation, Pagination } from "swiper/modules"
 
 import { motion, AnimatePresence } from "framer-motion"
 
-import { useState, useEffect, useMemo, useCallback } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -27,7 +27,100 @@ import {
   Camera,
   ChevronLeft,
   ChevronRight,
+  User,
+  Briefcase,
+  MessageSquare,
+  ArrowRight,
 } from "lucide-react"
+
+const OptimizedImage = ({
+  src,
+  alt,
+  className,
+  onClick,
+  priority = false,
+}: {
+  src: string
+  alt: string
+  className: string
+  onClick?: (e: React.MouseEvent) => void
+  priority?: boolean
+}) => {
+  const [imageLoaded, setImageLoaded] = useState(false)
+  const [imageError, setImageError] = useState(false)
+  const imgRef = useRef<HTMLImageElement>(null)
+
+  useEffect(() => {
+    if (priority && imgRef.current) {
+      imgRef.current.loading = "eager"
+    }
+  }, [priority])
+
+  return (
+    <div className={`relative overflow-hidden ${className}`}>
+      {!imageLoaded && !imageError && (
+        <div className="absolute inset-0 bg-gray-800 animate-pulse flex items-center justify-center">
+          <div className="w-8 h-8 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+        </div>
+      )}
+      <img
+        ref={imgRef}
+        src={imageError ? "/placeholder.svg?height=400&width=600&query=architecture placeholder" : src}
+        alt={alt}
+        loading={priority ? "eager" : "lazy"}
+        className={`w-full h-full object-cover transition-opacity duration-500 ${
+          imageLoaded ? "opacity-100" : "opacity-0"
+        }`}
+        onLoad={() => setImageLoaded(true)}
+        onError={() => setImageError(true)}
+        onClick={onClick}
+      />
+    </div>
+  )
+}
+
+const BackgroundVideo = ({
+  videoSrc,
+  isActive,
+  onLoad,
+  onError,
+}: {
+  videoSrc: string
+  isActive: boolean
+  onLoad: () => void
+  onError: () => void
+}) => {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [isPlaying, setIsPlaying] = useState(false)
+
+  useEffect(() => {
+    if (videoRef.current && isActive) {
+      videoRef.current.play().catch(() => {
+        onError()
+      })
+    }
+  }, [isActive, onError])
+
+  return (
+    <video
+      ref={videoRef}
+      autoPlay
+      muted
+      loop
+      playsInline
+      className="absolute inset-0 w-full h-full object-cover"
+      onLoadedData={onLoad}
+      onError={onError}
+      onPlay={() => setIsPlaying(true)}
+      onPause={() => setIsPlaying(false)}
+      style={{
+        transform: "scale(1.02)", // Slight scale to avoid edge artifacts
+      }}
+    >
+      <source src={videoSrc} type="video/mp4" />
+    </video>
+  )
+}
 
 export default function OptimizedArchitecturePortfolio() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -38,7 +131,29 @@ export default function OptimizedArchitecturePortfolio() {
   const [videoError, setVideoError] = useState(false)
   const [mp4Error, setMp4Error] = useState(false)
 
-  const handleScroll = useCallback(() => {
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0)
+  const [currentImages, setCurrentImages] = useState<string[]>([])
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false)
+
+  const backgroundVideos = [
+    "/placeholder.mp4?query=modern architecture building construction",
+    "/placeholder.mp4?query=luxury interior design showcase",
+    "/placeholder.mp4?query=architectural blueprint and planning",
+  ]
+
+  const bgImages = [
+    "/grup1.1.jpg",
+    "/grup1.2.jpg",
+    "/grup1.3.jpg",
+    "/grup1.4.jpg",
+    "/grup2.1.jpg",
+    "/grup2.2.jpg",
+    "/grup2.3.jpg",
+    "/grup2.4.jpg",
+  ]
+
+  const handleScroll = useCallback((event?: Event) => {
     const currentScrollY = window.scrollY
     setScrollY(currentScrollY)
     setShowScrollTop(currentScrollY > 500)
@@ -70,6 +185,15 @@ export default function OptimizedArchitecturePortfolio() {
     window.addEventListener("scroll", throttledScroll, { passive: true })
     return () => window.removeEventListener("scroll", throttledScroll)
   }, [handleScroll])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentVideoIndex((prev) => (prev + 1) % backgroundVideos.length)
+      setVideoLoaded(false)
+    }, 15000) // Change video every 15 seconds
+
+    return () => clearInterval(interval)
+  }, [backgroundVideos.length])
 
   const services = useMemo(
     () => [
@@ -275,299 +399,190 @@ export default function OptimizedArchitecturePortfolio() {
     window.scrollTo({ top: 0, behavior: "smooth" })
   }, [])
 
-  const bgImages = useMemo(
-    () => [
-      "/grup1.1.jpg",
-      "/grup1.2.jpg",
-      "/grup1.3.jpg",
-      "/grup1.4.jpg",
-      "/grup1.5.jpg",
-      "/grup2.1.jpg",
-      "/grup2.2.jpg",
-      "/grup2.3.jpg",
-      "/grup2.4.jpg",
-      "/grup3.1.jpg",
-      "/grup3.2.jpg",
-      "/grup4.1.jpg",
-      "/grup4.2.jpg",
-      "/grup4.3.jpg",
-      "/grup4.4.jpg",
-      "/grup5.1.jpg",
-      "/grup5.2.jpg",
-      "/grup5.3.jpg",
-      "/grup5.4.jpg",
-      "/grup5.5.jpg",
-      "/grup6.1.jpg",
-      "/grup6.2.jpg",
-      "/grup6.3.jpg",
-      "/grup6.4.jpg",
-      "/grup6.5.jpg",
-      "/grup6.6.jpg",
-    ],
-    [],
-  )
+  const openGallery = (images: string[], index: number) => {
+    setCurrentImages(images)
+    setCurrentIndex(index)
+    setIsGalleryOpen(true)
+    document.body.style.overflow = "hidden"
+  }
 
-  const [isModalOpen, setModalOpen] = useState(false)
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [currentImages, setCurrentImages] = useState<string[]>([])
-  const [galleryMode, setGalleryMode] = useState<"all" | "project">("all")
+  const closeGallery = () => {
+    setIsGalleryOpen(false)
+    document.body.style.overflow = "unset"
+  }
 
-  const changeSlide = useCallback(
-    (direction: number) => {
-      setCurrentIndex((prev) => (prev + direction + currentImages.length) % currentImages.length)
-    },
-    [currentImages.length],
-  )
+  const nextImage = () => {
+    setCurrentIndex((prev) => (prev + 1) % currentImages.length)
+  }
 
-  const openAllImagesGallery = useCallback(() => {
-    setCurrentImages(bgImages)
-    setCurrentIndex(0)
-    setGalleryMode("all")
-    setModalOpen(true)
-  }, [bgImages])
-
-  const openProjectGallery = useCallback((project: Project, startIndex = 0) => {
-    setCurrentImages(project.images)
-    setCurrentIndex(startIndex)
-    setGalleryMode("project")
-    setModalOpen(true)
-  }, [])
-
-  const [isOpen, setIsOpen] = useState(false)
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
-  const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined)
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setModalOpen(false)
-      if (e.key === "ArrowLeft") changeSlide(-1)
-      if (e.key === "ArrowRight") changeSlide(1)
-    }
-    window.addEventListener("keydown", handleKeyDown)
-    return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [changeSlide])
-
-  useEffect(() => {
-    if (isModalOpen) {
-      document.body.classList.add("overflow-hidden")
-    } else {
-      document.body.classList.remove("overflow-hidden")
-    }
-  }, [isModalOpen])
-
-  const backgroundVideos = useMemo(
-    () => [
-      "https://www.youtube.com/embed/khVfTDZQ7FY?autoplay=1&mute=1&loop=1&playlist=khVfTDZQ7FY&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1",
-    ],
-    [],
-  )
-
-  const mp4Videos = useMemo(() => ["/background-video.mp4", "/architecture-bg.mp4", "/building-video.mp4"], [])
-
-  const [currentVideoIndex] = useState(() => Math.floor(Math.random() * backgroundVideos.length))
-  const [currentMp4Index] = useState(() => Math.floor(Math.random() * mp4Videos.length))
-
-  const ImageWithSkeleton = ({
-    src,
-    alt,
-    className,
-    onClick,
-    loading = "lazy",
-  }: {
-    src: string
-    alt: string
-    className: string
-    onClick?: (e: React.MouseEvent) => void
-    loading?: "lazy" | "eager"
-  }) => {
-    const [imageError, setImageError] = useState(false)
-
-    return (
-      <img
-        src={imageError ? "/placeholder.svg?height=400&width=600&query=architecture placeholder" : src}
-        alt={alt}
-        loading={loading}
-        className={className}
-        onError={() => setImageError(true)}
-        onClick={onClick}
-        style={{ aspectRatio: "16/9" }}
-      />
-    )
+  const prevImage = () => {
+    setCurrentIndex((prev) => (prev - 1 + currentImages.length) % currentImages.length)
   }
 
   return (
-    <div className="min-h-screen relative text-white pt-20">
-      <div className="fixed top-0 left-0 w-full h-full -z-10">
-        {!videoLoaded && !videoError && !mp4Error && (
-          <div className="absolute inset-0 bg-black flex items-center justify-center">
+    <div className="min-h-screen bg-black text-white overflow-x-hidden">
+      <div className="fixed inset-0 w-full h-full -z-10">
+        {!videoLoaded && !videoError && (
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-800 flex items-center justify-center">
             <div className="w-12 h-12 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
           </div>
         )}
 
-        {!videoError && !mp4Error && (
-          <iframe
-            src={backgroundVideos[currentVideoIndex]}
-            className={`w-full h-full object-cover transition-opacity duration-1000 ${
-              videoLoaded ? "opacity-100" : "opacity-0"
-            }`}
-            frameBorder="0"
-            allow="autoplay; encrypted-media"
-            allowFullScreen
+        {!videoError && (
+          <BackgroundVideo
+            videoSrc={backgroundVideos[currentVideoIndex]}
+            isActive={!videoError}
             onLoad={() => setVideoLoaded(true)}
-            onError={() => {
-              console.log("[v0] YouTube video failed, trying MP4 fallback")
-              setVideoError(true)
-              setVideoLoaded(true)
-            }}
-            style={{
-              pointerEvents: "none",
-              transform: "scale(1.5)",
-              transformOrigin: "center center",
-            }}
+            onError={() => setVideoError(true)}
           />
         )}
 
-        {videoError && !mp4Error && (
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-full object-cover"
-            onError={() => {
-              console.log("[v0] MP4 video failed, using black background")
-              setMp4Error(true)
-            }}
-            onLoadedData={() => {
-              console.log("[v0] MP4 video loaded successfully")
-              setVideoLoaded(true)
-            }}
-          >
-            <source src={mp4Videos[currentMp4Index]} type="video/mp4" />
-          </video>
-        )}
+        {videoError && <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-800" />}
 
-        {videoError && mp4Error && (
-          <div className="w-full h-full bg-gradient-to-br from-gray-900 via-black to-gray-800" />
-        )}
+        {/* Overlay for better text readability */}
+        <div className="absolute inset-0 bg-black/40" />
       </div>
 
       <motion.header
-        initial={{ y: -80, opacity: 0 }}
+        initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className={`backdrop-blur-sm fixed top-0 w-full z-50 transition-all duration-300 ${
-          scrollY > 50 ? "shadow-lg py-2" : "py-3 md:py-4"
-        }`}
+        transition={{ duration: 0.8 }}
+        className="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-md border-b border-white/10"
       >
-        <div className="container mx-auto px-4">
-          <nav className="flex items-center justify-between relative">
-            {/* Logo */}
-            <motion.div
-              initial={{ scale: 0.5, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="flex items-center space-x-2 md:space-x-3"
-            >
-              <img
-                src="/IMG_0184.png"
-                alt="Logo"
-                className="w-6 h-6 md:w-10 md:h-10 object-contain rounded-2xl"
-                loading="eager"
-              />
-              <div>
-                <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r text-white bg-clip-text">Arko.uz</h1>
-                <p className="text-xs text-white hidden sm:block">Professional Arxitektor</p>
-              </div>
-            </motion.div>
+        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            className="text-xl md:text-2xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent"
+          >
+            ARKO
+          </motion.div>
 
-            {/* Desktop navigation */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="hidden lg:flex items-center gap-6 xl:gap-8"
-            >
-              {["about", "services", "experience", "projects", "contact"].map((item, index) => (
-                <motion.button
-                  key={item}
-                  onClick={() => scrollToSection(item)}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-                  className={`capitalize transition-all duration-300 hover:text-white relative py-2 text-sm xl:text-base ${
-                    activeSection === item ? "text-white font-medium" : "text-stone-400"
-                  }`}
-                >
-                  {item === "about"
-                    ? "Men haqimda"
-                    : item === "services"
-                      ? "Xizmatlar"
-                      : item === "experience"
-                        ? "Tajriba"
-                        : item === "projects"
-                          ? "Loyihalar"
-                          : "Aloqa"}
-                  {activeSection === item && (
-                    <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-white to-white rounded-full"></div>
-                  )}
-                </motion.button>
-              ))}
-            </motion.div>
-
-            {/* Mobile button */}
-            <motion.button
-              initial={{ opacity: 0, rotate: -90 }}
-              animate={{ opacity: 1, rotate: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2 md:p-3 rounded-xl hover:bg-gradient-to-r hover:from-amber-50 hover:to-orange-50 transition-all duration-300 border border-transparent hover:border-amber-200 hover:shadow-md"
-            >
-              {isMenuOpen ? (
-                <X className="w-5 h-5 md:w-6 md:h-6 text-white" />
-              ) : (
-                <Menu className="w-5 h-5 md:w-6 md:h-6 text-white" />
-              )}
-            </motion.button>
-
-            {/* Mobile menu */}
-            <AnimatePresence>
-              {isMenuOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.4 }}
-                  className="lg:hidden absolute top-full left-0 w-full bg-stone-900/95 backdrop-blur-xl border-t border-stone-700 mt-2 rounded-b-2xl shadow-lg"
-                >
-                  <div className="flex flex-col space-y-1 px-6 py-6">
-                    {["about", "services", "experience", "projects", "contact"].map((item) => (
-                      <button
-                        key={item}
-                        onClick={() => {
-                          scrollToSection(item)
-                          setIsMenuOpen(false)
-                        }}
-                        className="text-left py-3 px-3 rounded-xl hover:bg-stone-800 transition-all duration-300 text-base font-medium text-white"
-                      >
-                        {item === "about"
-                          ? "Men haqimda"
-                          : item === "services"
-                            ? "Xizmatlar"
-                            : item === "experience"
-                              ? "Tajriba"
-                              : item === "projects"
-                                ? "Loyihalar"
-                                : "Aloqa"}
-                      </button>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex space-x-8">
+            {[
+              { name: "Bosh sahifa", href: "#home", icon: Home },
+              { name: "Men haqimda", href: "#about", icon: User },
+              { name: "Portfolio", href: "#portfolio", icon: Briefcase },
+              { name: "Aloqa", href: "#contact", icon: MessageSquare },
+            ].map((item) => (
+              <motion.a
+                key={item.name}
+                href={item.href}
+                whileHover={{ scale: 1.1 }}
+                className="flex items-center space-x-2 text-white/80 hover:text-white transition-colors duration-300"
+              >
+                <item.icon className="w-4 h-4" />
+                <span>{item.name}</span>
+              </motion.a>
+            ))}
           </nav>
+
+          {/* Mobile Menu Button */}
+          <Button variant="ghost" size="sm" className="md:hidden text-white" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            <Menu className="w-6 h-6" />
+          </Button>
         </div>
+
+        {/* Mobile Navigation */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden bg-black/90 backdrop-blur-md border-t border-white/10"
+            >
+              <nav className="container mx-auto px-4 py-4 space-y-4">
+                {[
+                  { name: "Bosh sahifa", href: "#home", icon: Home },
+                  { name: "Men haqimda", href: "#about", icon: User },
+                  { name: "Portfolio", href: "#portfolio", icon: Briefcase },
+                  { name: "Aloqa", href: "#contact", icon: MessageSquare },
+                ].map((item) => (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="flex items-center space-x-3 text-white/80 hover:text-white transition-colors duration-300 py-2"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <item.icon className="w-5 h-5" />
+                    <span>{item.name}</span>
+                  </a>
+                ))}
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.header>
+
+      <section id="home" className="relative min-h-screen flex items-center justify-center">
+        <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
+          <motion.h1
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1, delay: 0.2 }}
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 leading-tight"
+          >
+            Professional{" "}
+            <span className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent">
+              Arko jamoasi
+            </span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1, delay: 0.4 }}
+            className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 max-w-4xl mx-auto mb-8 leading-relaxed"
+          >
+            5+ yillik tajriba bilan zamonaviy va funksional arxitektura yechimlarini yarataman. Turar-joy, tijorat va
+            sanoat binolarini loyihalash, ichki dizayn va 3D vizualizatsiya xizmatlarini taqdim etaman.
+          </motion.p>
+
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1, delay: 0.6 }}
+            className="flex flex-wrap justify-center gap-3 md:gap-4 mb-8 md:mb-12"
+          >
+            <Badge className="bg-black/50 text-white border border-white/30 px-4 py-2 text-sm md:text-base rounded-lg hover:bg-white hover:text-black transition-all duration-300 backdrop-blur-sm">
+              <Building2 className="w-4 h-4 mr-2" /> Litsenziyali Arxitektor
+            </Badge>
+            <Badge className="bg-black/50 text-white border border-white/30 px-4 py-2 text-sm md:text-base rounded-lg hover:bg-white hover:text-black transition-all duration-300 backdrop-blur-sm">
+              <Star className="w-4 h-4 mr-2" /> 5+ Yil Tajriba
+            </Badge>
+          </motion.div>
+
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1, delay: 0.8 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          >
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105"
+              asChild
+            >
+              <a href="#portfolio">
+                Portfolio ko'rish
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </a>
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              className="border-white/30 text-white hover:bg-white hover:text-black px-8 py-3 rounded-lg font-semibold transition-all duration-300 backdrop-blur-sm bg-transparent"
+              asChild
+            >
+              <a href="#contact">
+                Aloqa qilish
+                <MessageSquare className="w-5 h-5 ml-2" />
+              </a>
+            </Button>
+          </motion.div>
+        </div>
+      </section>
 
       <section id="about" className="relative container mx-auto h-screen w-full overflow-hidden">
         {/* Kontent qismi */}
@@ -757,6 +772,73 @@ export default function OptimizedArchitecturePortfolio() {
         </div>
       </section>
 
+      <section id="portfolio" className="relative py-20 bg-black/80 backdrop-blur-sm">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
+              Mening{" "}
+              <span className="bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+                Portfolio
+              </span>
+            </h2>
+            <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
+              Yaratgan loyihalarim va amalga oshirgan g'oyalarim
+            </p>
+          </motion.div>
+
+          <div className="w-full max-w-7xl mx-auto">
+            <Swiper
+              modules={[Autoplay, Navigation, Pagination]}
+              spaceBetween={20}
+              slidesPerView={1}
+              loop
+              autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+              }}
+              navigation
+              pagination={{ clickable: true }}
+              breakpoints={{
+                640: { slidesPerView: 2, spaceBetween: 20 },
+                1024: { slidesPerView: 3, spaceBetween: 30 },
+                1280: { slidesPerView: 4, spaceBetween: 30 },
+              }}
+              className="portfolio-swiper"
+            >
+              {bgImages.map((src, i) => (
+                <SwiperSlide key={src}>
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    className="relative group cursor-pointer"
+                    onClick={() => openGallery(bgImages, i)}
+                  >
+                    <OptimizedImage
+                      src={src}
+                      alt={`Portfolio loyihasi ${i + 1}`}
+                      className="w-full h-64 md:h-80 rounded-xl shadow-2xl"
+                      priority={i < 4} // Prioritize first 4 images
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl flex items-end">
+                      <div className="p-6 text-white">
+                        <h3 className="text-lg font-semibold mb-2">Loyiha {i + 1}</h3>
+                        <p className="text-sm text-gray-300">Professional arxitektura yechimi</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </div>
+      </section>
+
       {/* Enhanced Projects Section */}
       <section id="projects" className="py-16 md:py-20 lg:py-24">
         <div className="container mx-auto px-4">
@@ -767,98 +849,6 @@ export default function OptimizedArchitecturePortfolio() {
             <p className="text-lg md:text-xl text-stone-400 max-w-3xl mx-auto px-4">
               Professional faoliyatim davomida yaratgan eng muvaffaqiyatli loyihalar
             </p>
-          </div>
-
-          <div className="w-full max-w-5xl mx-auto py-6 mb-16">
-            <Swiper
-              modules={[Autoplay]}
-              spaceBetween={10}
-              slidesPerView={1}
-              loop
-              autoplay={{ delay: 2500, disableOnInteraction: false }}
-              breakpoints={{
-                640: { slidesPerView: 2 },
-                1024: { slidesPerView: 3 },
-              }}
-              onClick={openAllImagesGallery}
-              className="cursor-pointer"
-            >
-              {bgImages.map((src, i) => (
-                <SwiperSlide key={src}>
-                  <ImageWithSkeleton
-                    src={src || "/placeholder.svg"}
-                    alt={`rasm-${i}`}
-                    className="w-full h-64 object-cover rounded-xl shadow-lg cursor-pointer transition-transform hover:scale-105"
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      setCurrentImages(bgImages)
-                      setCurrentIndex(i)
-                      setGalleryMode("all")
-                      setModalOpen(true)
-                    }}
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-
-            <AnimatePresence>
-              {isModalOpen && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="fixed inset-0 bg-black/95 flex items-center justify-center z-50"
-                >
-                  <button
-                    onClick={() => setModalOpen(false)}
-                    className="absolute top-4 right-4 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors z-10 flex items-center gap-2"
-                  >
-                    <X className="w-4 h-4" />
-                    Yopish
-                  </button>
-
-                  <button
-                    onClick={() => changeSlide(-1)}
-                    className="absolute left-6 text-white p-3 rounded-full bg-black/60 hover:bg-black/80 transition-colors z-10 flex items-center justify-center"
-                  >
-                    <ChevronLeft className="w-8 h-8" />
-                  </button>
-
-                  <div className="flex flex-col items-center max-w-[90vw] max-h-[90vh]">
-                    <motion.div
-                      key={currentIndex}
-                      initial={{ scale: 0.8, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      transition={{ duration: 0.3 }}
-                      className="max-w-full max-h-[80vh]"
-                    >
-                      <ImageWithSkeleton
-                        src={currentImages[currentIndex] || "/placeholder.svg"}
-                        alt={`rasm-${currentIndex}`}
-                        className="max-w-full max-h-[80vh] object-contain rounded-lg shadow-2xl"
-                        loading="eager"
-                      />
-                    </motion.div>
-
-                    <div className="mt-4 text-white text-center">
-                      <p className="text-lg font-medium">
-                        {currentIndex + 1} / {currentImages.length}
-                      </p>
-                      <p className="text-sm text-gray-300 mt-1">
-                        {galleryMode === "all" ? "Barcha rasmlar" : "Loyiha rasmlari"}
-                      </p>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => changeSlide(1)}
-                    className="absolute right-6 text-white p-3 rounded-full bg-black/60 hover:bg-black/80 transition-colors z-10 flex items-center justify-center"
-                  >
-                    <ChevronRight className="w-8 h-8" />
-                  </button>
-                </motion.div>
-              )}
-            </AnimatePresence>
           </div>
 
           <div className="space-y-16 md:space-y-20 max-w-7xl mx-auto">
@@ -877,22 +867,23 @@ export default function OptimizedArchitecturePortfolio() {
                   <div className="relative group">
                     <div className="absolute -inset-1 md:-inset-2 rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-1000"></div>
                     <div className="relative cursor-pointer p-1 md:p-2 rounded-2xl shadow-xl">
-                      <ImageWithSkeleton
+                      <OptimizedImage
                         src={project.image || "/placeholder.svg"}
                         alt={project.title}
                         className="w-full h-64 md:h-80 lg:h-96 object-cover rounded-xl shadow-lg group-hover:scale-[1.02] transition-transform duration-500"
-                        onClick={() => openProjectGallery(project, 0)}
+                        onClick={() => openGallery(project.images, 0)}
+                        priority={index < 2}
                       />
 
                       {project.images.length > 1 && (
                         <div className="flex gap-2 mt-4 overflow-x-auto pb-2">
                           {project.images.slice(1).map((img, imgIndex) => (
-                            <ImageWithSkeleton
+                            <OptimizedImage
                               key={imgIndex}
                               src={img || "/placeholder.svg"}
                               alt={`${project.title} ${imgIndex + 2}`}
                               className="w-16 h-16 md:w-20 md:h-20 object-cover rounded-lg cursor-pointer hover:scale-105 transition-transform flex-shrink-0"
-                              onClick={() => openProjectGallery(project, imgIndex + 1)}
+                              onClick={() => openGallery(project.images, imgIndex + 1)}
                             />
                           ))}
                         </div>
@@ -1058,6 +1049,99 @@ export default function OptimizedArchitecturePortfolio() {
           </motion.button>
         )}
       </AnimatePresence>
+
+      <AnimatePresence>
+        {isGalleryOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex items-center justify-center"
+            onClick={closeGallery}
+          >
+            <div className="relative w-full h-full flex items-center justify-center p-4">
+              {/* Close button */}
+              <Button
+                variant="ghost"
+                size="sm"
+                className="absolute top-4 right-4 z-10 text-white hover:bg-white/20"
+                onClick={closeGallery}
+              >
+                <X className="w-6 h-6" />
+              </Button>
+
+              {/* Navigation buttons */}
+              <Button
+                variant="ghost"
+                size="sm"
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-10 text-white hover:bg-white/20"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  prevImage()
+                }}
+              >
+                <ChevronLeft className="w-8 h-8" />
+              </Button>
+
+              <Button
+                variant="ghost"
+                size="sm"
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-10 text-white hover:bg-white/20"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  nextImage()
+                }}
+              >
+                <ChevronRight className="w-8 h-8" />
+              </Button>
+
+              {/* Main image */}
+              <motion.div
+                key={currentIndex}
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.3 }}
+                className="relative max-w-full max-h-full"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <OptimizedImage
+                  src={currentImages[currentIndex]}
+                  alt={`Gallery image ${currentIndex + 1}`}
+                  className="max-w-full max-h-[90vh] object-contain rounded-lg"
+                  priority={true}
+                />
+              </motion.div>
+
+              {/* Image counter */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white px-4 py-2 rounded-lg backdrop-blur-sm">
+                {currentIndex + 1} / {currentImages.length}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <style jsx global>{`
+        .portfolio-swiper .swiper-pagination-bullet {
+          background: rgba(255, 255, 255, 0.5);
+          opacity: 1;
+        }
+        .portfolio-swiper .swiper-pagination-bullet-active {
+          background: #f59e0b;
+        }
+        .portfolio-swiper .swiper-button-next,
+        .portfolio-swiper .swiper-button-prev {
+          color: white;
+          background: rgba(0, 0, 0, 0.5);
+          border-radius: 50%;
+          width: 40px;
+          height: 40px;
+        }
+        .portfolio-swiper .swiper-button-next:after,
+        .portfolio-swiper .swiper-button-prev:after {
+          font-size: 16px;
+        }
+      `}</style>
     </div>
   )
 }

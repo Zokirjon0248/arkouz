@@ -79,48 +79,7 @@ const OptimizedImage = ({
   )
 }
 
-const BackgroundVideo = ({
-  videoSrc,
-  isActive,
-  onLoad,
-  onError,
-}: {
-  videoSrc: string
-  isActive: boolean
-  onLoad: () => void
-  onError: () => void
-}) => {
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const [isPlaying, setIsPlaying] = useState(false)
 
-  useEffect(() => {
-    if (videoRef.current && isActive) {
-      videoRef.current.play().catch(() => {
-        onError()
-      })
-    }
-  }, [isActive, onError])
-
-  return (
-    <video
-      ref={videoRef}
-      autoPlay
-      muted
-      loop
-      playsInline
-      className="absolute inset-0 w-full h-full object-cover"
-      onLoadedData={onLoad}
-      onError={onError}
-      onPlay={() => setIsPlaying(true)}
-      onPause={() => setIsPlaying(false)}
-      style={{
-        transform: "scale(1.02)", // Slight scale to avoid edge artifacts
-      }}
-    >
-      <source src={videoSrc} type="video/mp4" />
-    </video>
-  )
-}
 
 export default function OptimizedArchitecturePortfolio() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -772,48 +731,64 @@ export default function OptimizedArchitecturePortfolio() {
           </motion.div>
 
           <div className="w-full max-w-7xl mx-auto">
-            <Swiper
-              modules={[Autoplay, Navigation, Pagination]}
-              spaceBetween={20}
-              slidesPerView={1}
-              loop
-              autoplay={{
-                delay: 3000,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true,
-              }}
-              navigation
-              pagination={{ clickable: true }}
-              breakpoints={{
-                640: { slidesPerView: 2, spaceBetween: 20 },
-                1024: { slidesPerView: 3, spaceBetween: 30 },
-                1280: { slidesPerView: 4, spaceBetween: 30 },
-              }}
-              className="portfolio-swiper"
-            >
-              {bgImages.map((src, i) => (
-                <SwiperSlide key={src}>
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    className="relative group cursor-pointer"
-                    onClick={() => openGallery(bgImages, i)}
-                  >
-                    <OptimizedImage
-                      src={src}
-                      alt={`Portfolio loyihasi ${i + 1}`}
-                      className="w-full h-64 md:h-80 rounded-xl shadow-2xl"
-                      priority={i < 4} // Prioritize first 4 images
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl flex items-end">
-                      <div className="p-6 text-white">
-                        <h3 className="text-lg font-semibold mb-2">Loyiha {i + 1}</h3>
-                        <p className="text-sm text-gray-300">Professional arxitektura yechimi</p>
-                      </div>
-                    </div>
-                  </motion.div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
+     <Swiper
+  modules={[Autoplay, Navigation, Pagination]}
+  spaceBetween={20}
+  slidesPerView={1}
+  loop
+  autoplay={{
+    delay: 3000,
+    disableOnInteraction: false,
+    pauseOnMouseEnter: true,
+  }}
+  navigation={{
+    nextEl: ".custom-next",
+    prevEl: ".custom-prev",
+  }}
+  pagination={{ clickable: true }}
+  breakpoints={{
+    640: { slidesPerView: 2, spaceBetween: 20 },
+    1024: { slidesPerView: 3, spaceBetween: 30 },
+    1280: { slidesPerView: 4, spaceBetween: 30 },
+  }}
+  className="portfolio-swiper"
+>
+  {bgImages.map((src, i) => (
+    <SwiperSlide key={src}>
+      <motion.div
+        whileHover={{ scale: 1.05 }}
+        className="relative group cursor-pointer"
+        onClick={() => openGallery(bgImages, i)}
+      >
+        <OptimizedImage
+          src={src}
+          alt={`Portfolio loyihasi ${i + 1}`}
+          className="w-full h-64 md:h-80 rounded-xl shadow-2xl"
+          priority={i < 4}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl flex items-end">
+          <div className="p-6 text-white">
+            <h3 className="text-lg font-semibold mb-2">Loyiha {i + 1}</h3>
+            <p className="text-sm text-gray-300">Professional arxitektura yechimi</p>
+          </div>
+        </div>
+      </motion.div>
+    </SwiperSlide>
+  ))}
+
+  {/* Custom prev/next tugmalar */}
+  <div className="custom-prev absolute top-1/2 left-2 -translate-y-1/2 
+                  w-6 h-6 md:w-8 md:h-8 lg:w-11 lg:h-11 
+                  bg-black/50 rounded-full flex items-center justify-center text-white cursor-pointer z-10">
+    ‹
+  </div>
+  <div className="custom-next absolute top-1/2 right-2 -translate-y-1/2 
+                  w-6 h-6 md:w-8 md:h-8 lg:w-11 lg:h-11 
+                  bg-black/50 rounded-full flex items-center justify-center text-white cursor-pointer z-10">
+    ›
+  </div>
+</Swiper>
+
           </div>
         </div>
       </section>

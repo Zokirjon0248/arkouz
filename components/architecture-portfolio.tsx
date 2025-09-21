@@ -136,11 +136,7 @@ export default function OptimizedArchitecturePortfolio() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isGalleryOpen, setIsGalleryOpen] = useState(false)
 
-  const backgroundVideos = [
-    "/placeholder.mp4?query=modern architecture building construction",
-    "/placeholder.mp4?query=luxury interior design showcase",
-    "/placeholder.mp4?query=architectural blueprint and planning",
-  ]
+
 
   const bgImages = [
     "/grup1.1.jpg",
@@ -186,15 +182,7 @@ export default function OptimizedArchitecturePortfolio() {
     return () => window.removeEventListener("scroll", throttledScroll)
   }, [handleScroll])
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentVideoIndex((prev) => (prev + 1) % backgroundVideos.length)
-      setVideoLoaded(false)
-    }, 15000) // Change video every 15 seconds
-
-    return () => clearInterval(interval)
-  }, [backgroundVideos.length])
-
+ 
   const services = useMemo(
     () => [
       {
@@ -420,28 +408,19 @@ export default function OptimizedArchitecturePortfolio() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white overflow-x-hidden">
-      <div className="fixed inset-0 w-full h-full -z-10">
-        {!videoLoaded && !videoError && (
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-800 flex items-center justify-center">
-            <div className="w-12 h-12 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-          </div>
-        )}
-
-        {!videoError && (
-          <BackgroundVideo
-            videoSrc={backgroundVideos[currentVideoIndex]}
-            isActive={!videoError}
-            onLoad={() => setVideoLoaded(true)}
-            onError={() => setVideoError(true)}
-          />
-        )}
-
-        {videoError && <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-800" />}
-
-        {/* Overlay for better text readability */}
-        <div className="absolute inset-0 bg-black/40" />
-      </div>
+  <div className="min-h-screen  text-white overflow-x-hidden relative">
+  {/* Orqa fon video */}
+  <div className="fixed inset-0 w-full h-full -z-10">
+    <video
+      autoPlay
+      loop
+      muted
+      playsInline
+      className="w-full h-full object-cover"
+    >
+      <source src="/architecture.mp4" type="video/mp4" />
+    </video>
+  </div>
 
       <motion.header
         initial={{ y: -100, opacity: 0 }}
@@ -772,7 +751,7 @@ export default function OptimizedArchitecturePortfolio() {
         </div>
       </section>
 
-      <section id="portfolio" className="relative py-20 bg-black/80 backdrop-blur-sm">
+      <section id="portfolio" className="relative py-20 ">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ y: 50, opacity: 0 }}

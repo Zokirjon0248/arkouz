@@ -1,7 +1,7 @@
 "use client"
-import React, { useMemo } from "react"
+import React, { useMemo, useCallback } from "react"
 import { Swiper, SwiperSlide } from "swiper/react"
-import { Autoplay } from "swiper/modules"
+import { Autoplay, Pagination } from "swiper/modules"
 import { Card, CardContent } from "@/components/ui/card"
 import { Building2, Palette, Home, Camera, Layout, PenTool } from "lucide-react"
 
@@ -50,6 +50,60 @@ export const ServicesSection = React.memo(() => {
     [],
   )
 
+  const isAutoplayActive = true
+
+ const swiperConfig = useMemo(
+  () => ({
+    modules: [Autoplay, Pagination],
+    spaceBetween: 30,
+    slidesPerView: 1,
+    loop: true,
+    pagination: { clickable: true },
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: false, // ✨ shu joyni o‘zgartirdim
+    },
+    breakpoints: {
+      320: { slidesPerView: 1 },
+      640: { slidesPerView: 2 },
+      1024: { slidesPerView: 3 },
+    },
+    watchSlidesProgress: true,
+    preloadImages: false,
+  }),
+  [],
+)
+
+
+  const renderServiceCard = useCallback((service: (typeof services)[0], index: number) => {
+    const Icon = service.icon
+    return (
+      <SwiperSlide key={index}>
+        <Card className="group hover:shadow-2xl transition-all bg-transparent duration-300 hover:translate-y-[-4px] relative overflow-hidden will-change-transform">
+          <div className="absolute inset-0 bg-gray-700/5 group-hover:bg-gray-600/10 transition-colors duration-300"></div>
+          <CardContent className="p-6 md:p-8 relative z-10">
+            <div className="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 md:mb-6 bg-gradient-to-br from-gray-700 via-gray-600 to-gray-500 rounded-2xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300 shadow-lg will-change-transform">
+              <Icon className="h-8 w-8 md:h-10 md:w-10 text-white" />
+            </div>
+            <h3 className="text-lg md:text-xl font-bold text-white mb-3 md:mb-4 text-center">{service.name}</h3>
+            <p className="text-gray-300 mb-4 md:mb-6 text-center leading-relaxed text-sm md:text-base">
+              {service.description}
+            </p>
+            <div className="space-y-2 md:space-y-3">
+              {service.features.map((feature, idx) => (
+                <div key={idx} className="flex items-center text-gray-200">
+                  <div className="w-2 h-2 bg-gradient-to-r from-gray-400 to-gray-600 rounded-full mr-3 flex-shrink-0"></div>
+                  <span className="text-sm md:text-base">{feature}</span>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </SwiperSlide>
+    )
+  }, [])
+
   return (
     <section id="services" className="py-16 md:py-20 lg:py-24">
       <div className="container mx-auto px-4">
@@ -63,48 +117,8 @@ export const ServicesSection = React.memo(() => {
           </p>
         </div>
 
-        <Swiper
-          modules={[Autoplay]}
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-          }}
-          loop={true}
-          spaceBetween={20}
-          breakpoints={{
-            320: { slidesPerView: 1 },
-            640: { slidesPerView: 2 },
-            1024: { slidesPerView: 3 },
-          }}
-          className="max-w-7xl mx-auto"
-        >
-          {services.map((service, index) => {
-            const Icon = service.icon
-            return (
-              <SwiperSlide key={index}>
-                <Card className="group hover:shadow-2xl transition-all bg-transparent duration-500 hover:-translate-y-3 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-gray-700/10 via-gray-600/10 to-gray-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <CardContent className="p-6 md:p-8 relative z-10">
-                    <div className="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 md:mb-6 bg-gradient-to-br from-gray-700 via-gray-600 to-gray-500 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-lg">
-                      <Icon className="h-8 w-8 md:h-10 md:w-10 text-white" />
-                    </div>
-                    <h3 className="text-lg md:text-xl font-bold text-white mb-3 md:mb-4 text-center">{service.name}</h3>
-                    <p className="text-gray-300 mb-4 md:mb-6 text-center leading-relaxed text-sm md:text-base">
-                      {service.description}
-                    </p>
-                    <div className="space-y-2 md:space-y-3">
-                      {service.features.map((feature, idx) => (
-                        <div key={idx} className="flex items-center text-gray-200">
-                          <div className="w-2 h-2 bg-gradient-to-r from-gray-400 to-gray-600 rounded-full mr-3 flex-shrink-0"></div>
-                          <span className="text-sm md:text-base">{feature}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              </SwiperSlide>
-            )
-          })}
+        <Swiper {...swiperConfig} className="max-w-7xl mx-auto">
+          {services.map(renderServiceCard)}
         </Swiper>
       </div>
     </section>

@@ -9,7 +9,7 @@ export const Footer = React.memo(() => {
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 rounded-xl flex items-center justify-center overflow-hidden">
               <img
-                src="/IMG_0184.png"
+                src="/logo.png"
                 alt="Logo"
                 className="w-6 h-6 md:w-10 md:h-10 object-contain rounded-2xl"
                 loading="lazy"
@@ -17,7 +17,7 @@ export const Footer = React.memo(() => {
             </div>
 
             <div>
-              <span className="text-lg md:text-xl font-bold tracking-wide">Arko.uz</span>
+              <span className="text-lg md:text-xl font-bold tracking-wide">ARX-DEXIUM</span>
               <p className="text-xs md:text-sm text-stone-400">Professional Arxitektor</p>
             </div>
           </div>

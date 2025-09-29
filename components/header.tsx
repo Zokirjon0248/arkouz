@@ -41,9 +41,21 @@ export const Header = React.memo(({ scrollToSection }: HeaderProps) => {
       style={{ transform: "translate3d(0, 0, 0)" }}
     >
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <div className="text-xl md:text-2xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
-          ARKO
-        </div>
+       <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center overflow-hidden">
+              <img
+                src="/logo.png"
+                alt="Logo"
+                className="w-6 h-6 md:w-10 md:h-10 object-contain rounded-2xl"
+                loading="lazy"
+              />
+            </div>
+
+            <div>
+              <span className="text-lg md:text-xl font-bold tracking-wide">ARX-DEXIUM</span>
+              <p className="text-xs md:text-sm text-stone-400">Professional Arxitektor</p>
+            </div>
+          </div>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-8">

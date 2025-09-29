@@ -23,7 +23,7 @@ export const HeroSection = React.memo(() => {
   )
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center">
+    <section id="home" className="relative min-h-screen flex items-center justify-center pt-20">
       <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
         <motion.h1
           variants={fadeInVariants}
@@ -34,7 +34,7 @@ export const HeroSection = React.memo(() => {
         >
           Professional{" "}
           <span className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent">
-            Arko jamoasi
+            ARX-DEXIUM jamoasi
           </span>
         </motion.h1>
 
@@ -56,9 +56,7 @@ export const HeroSection = React.memo(() => {
           transition={{ duration: prefersReducedMotion ? 0.1 : 0.8, delay: 0.3 }}
           className="flex flex-wrap justify-center gap-3 md:gap-4 mb-8 md:mb-12"
         >
-          <Badge className="bg-black/60 text-white border border-white/30 px-4 py-2 text-sm md:text-base rounded-lg hover:bg-white hover:text-black transition-colors duration-200">
-            <Building2 className="w-4 h-4 mr-2" /> Litsenziyali Arxitektor
-          </Badge>
+        
           <Badge className="bg-black/60 text-white border border-white/30 px-4 py-2 text-sm md:text-base rounded-lg hover:bg-white hover:text-black transition-colors duration-200">
             <Star className="w-4 h-4 mr-2" /> 5+ Yil Tajriba
           </Badge>

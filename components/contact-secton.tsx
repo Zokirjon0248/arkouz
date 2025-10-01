@@ -117,7 +117,7 @@ export const ContactSection = React.memo(() => {
               className="group relative overflow-hidden bg-white text-black hover:bg-blue-500 hover:text-white transition-all duration-500 px-6 py-3 font-bold rounded-xl flex items-center gap-2"
               asChild
             >
-              <a href="https://t.me/arko_uz" target="_blank" rel="noopener noreferrer">
+              <a href="https://t.me/arx_dexium" target="_blank" rel="noopener noreferrer">
                 <FaTelegramPlane className="text-xl group-hover:rotate-12 group-hover:scale-125 transition-transform" />
                 <span className="relative z-10">Telegram</span>
               </a>
@@ -129,7 +129,7 @@ export const ContactSection = React.memo(() => {
               asChild
             >
               <a
-                href="https://www.instagram.com/arko.uz?igsh=NzRrcWpnMHhndnU0"
+                href="https://www.instagram.com/arx_dexium?utm_source=ig_web_button_share_sheet&igsh=MWRlbzY2d3Bza3cyaw=="
                 target="_blank"
                 rel="noopener noreferrer"
               >
